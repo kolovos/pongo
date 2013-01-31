@@ -1,0 +1,13 @@
+pre {
+	//var targetDir = "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/";
+}
+
+rule EClass2Class 
+	transform c : EClass {
+	
+	template : "eclass2class.egl"
+	
+	target : "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/"
+		 + c.name + ".java"
+		
+}

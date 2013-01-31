@@ -1,0 +1,20 @@
+[%import "util.eol";%]
+package [%=c.ePackage.name%];
+
+import org.googlecode.pongo.runtime.Pongo;
+
+public class [%=c.name%] extends [%=c.getJavaExtends()%] {
+	
+	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
+	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
+		return [%=a.eType.getParseMethod()%](dbObject.get("[%=a.name%]")+"", [%=a.getDefaultJavaValue()%]);
+	}
+	
+	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
+		dbObject.put("[%=a.name%]", [%=a.name%] + "");
+		return this;
+	}
+	
+	[%}%]
+	
+}
