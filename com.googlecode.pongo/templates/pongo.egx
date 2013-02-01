@@ -1,3 +1,6 @@
+import "javautil.eol";
+import "ecoreutil.eol";
+
 pre {
 	//var targetDir = "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/";
 }
@@ -10,4 +13,16 @@ rule EClass2Class
 	target : "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/"
 		 + c.name + ".java"
 		
+}
+
+rule EClass2CollectionClass 
+	transform c : EClass {
+	
+	guard : c.isAnnotatedAs("collection")
+	
+	template : "eclass2collectionclass.egl"
+	
+	target : "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/"
+		 + c.name + "Collection.java"
+	
 }

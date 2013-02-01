@@ -1,9 +1,14 @@
-[%import "util.eol";%]
+[%import "javautil.eol";%]
 package [%=c.ePackage.name%];
 
 import org.googlecode.pongo.runtime.Pongo;
+import com.mongodb.DBObject;
 
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
+	
+	public [%=c.name%]() { super(); }
+	
+	public [%=c.name%](DBObject dbObject) { super(dbObject); };
 	
 	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
 	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {

@@ -1,0 +1,19 @@
+[%import "javautil.eol";%]
+package [%=c.ePackage.name%];
+
+import org.googlecode.pongo.runtime.PongoCollection;
+import org.googlecode.pongo.runtime.PongoCursorIterator;
+
+import com.mongodb.DBObject;
+
+public class [%=c.name%]Collection extends PongoCollection {
+	
+	public Iterable<[%=c.name%]> get[%=c.name%]s() {
+		return new PongoCursorIterator<[%=c.name%]>() {
+			@Override
+			protected [%=c.name%] create(DBObject dbObject) {
+				return new [%=c.name%](dbObject);
+			}
+		};
+	}
+}

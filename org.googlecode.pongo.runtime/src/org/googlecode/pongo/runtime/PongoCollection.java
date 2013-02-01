@@ -1,5 +1,9 @@
 package org.googlecode.pongo.runtime;
 
-public class PongoCollection {
+import com.mongodb.DBCollection;
 
+public class PongoCollection {
+	
+	protected DBCollection dbCollection;
+	
 }

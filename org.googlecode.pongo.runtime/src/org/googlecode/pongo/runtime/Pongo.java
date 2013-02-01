@@ -1,10 +1,19 @@
 package org.googlecode.pongo.runtime;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 public class Pongo {
 	
 	protected DBObject dbObject;
+	
+	public Pongo() {
+		this.dbObject = new BasicDBObject();
+	}
+	
+	public Pongo(DBObject dbObject) {
+		this.dbObject = dbObject;
+	}
 	
 	protected String parseString(String str, String def) {
 		if (str == null) return def;
