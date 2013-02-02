@@ -5,11 +5,11 @@ import java.util.Iterator;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-public class PongoCursorIterator<T> implements Iterable<T> {
+public class PongoCursorIterable<T> implements Iterable<T> {
 	
 	protected DBCursor dbCursor;
 	
-	public PongoCursorIterator(DBCursor dbCursor) {
+	public PongoCursorIterable(DBCursor dbCursor) {
 		this.dbCursor = dbCursor;
 	}
 	

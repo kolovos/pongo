@@ -5,7 +5,7 @@ import "ecoreutil.eol";
 package [%=c.ePackage.name%];
 
 import org.googlecode.pongo.runtime.PongoCollection;
-import org.googlecode.pongo.runtime.PongoCursorIterator;
+import org.googlecode.pongo.runtime.PongoCursorIterable;
 
 import com.mongodb.DBCollection;
 import com.mongodb.BasicDBObject;
@@ -20,12 +20,12 @@ public class [%=c.name%]Collection extends PongoCollection {
 	}
 	
 	public Iterable<[%=c.name%]> get[%=c.name%]s() {
-		return new PongoCursorIterator<[%=c.name%]>(dbCollection.find());
+		return new PongoCursorIterable<[%=c.name%]>(dbCollection.find());
 	}
 	
 	[%for (a in c.eAttributes.select(a|a.isAnnotatedAs("searchable"))) { %]
 	public Iterable<[%=c.name%]> find[%=c.name%]sBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
-		return new PongoCursorIterator<[%=c.name%]>(dbCollection.find(new BasicDBObject("[%=a.name%]", q + "")));
+		return new PongoCursorIterable<[%=c.name%]>(dbCollection.find(new BasicDBObject("[%=a.name%]", q + "")));
 	}
 	[%}%]
 	
