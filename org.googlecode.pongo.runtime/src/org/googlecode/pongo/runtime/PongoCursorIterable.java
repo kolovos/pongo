@@ -8,9 +8,11 @@ import com.mongodb.DBObject;
 public class PongoCursorIterable<T> implements Iterable<T> {
 	
 	protected DBCursor dbCursor;
+	protected PongoCollection pongoCollection;
 	
-	public PongoCursorIterable(DBCursor dbCursor) {
+	public PongoCursorIterable(PongoCollection pongoCollection, DBCursor dbCursor) {
 		this.dbCursor = dbCursor;
+		this.pongoCollection = pongoCollection;
 	}
 	
 	public void setDbCursor(DBCursor dbCursor) {
@@ -27,7 +29,9 @@ public class PongoCursorIterable<T> implements Iterable<T> {
 
 			@Override
 			public T next() {
-				return (T) PongoFactory.getInstance().createPongo(dbCursor.next());
+				Pongo next = (Pongo) PongoFactory.getInstance().createPongo(dbCursor.next());
+				next.setPongoCollection(pongoCollection);
+				return (T) next;
 			}
 
 			@Override

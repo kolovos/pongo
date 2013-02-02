@@ -5,6 +5,7 @@ class Post {
    @searchable
    attr String title;
    val Comment[*] comments;
+   ref Author author;
 }
 
 class FeaturedPost extends Post {
@@ -12,6 +13,12 @@ class FeaturedPost extends Post {
 }
 
 class Comment {
-   attr String author;
+   ref Author author;
    val Comment[*] replies;
+}
+
+@collection
+class Author {
+   @searchable
+   attr String name;
 }

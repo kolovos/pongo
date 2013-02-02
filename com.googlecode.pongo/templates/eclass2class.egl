@@ -9,8 +9,11 @@ import org.googlecode.pongo.runtime.PongoList;
 
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
-	[%for (r in c.eReferences) { %]
+	[%for (r in c.eReferences.select(r|r.isMany)) { %]
 	protected List<[%=r.eType.name%]> [%=r.name%] = null;
+	[%}%]
+	[%for (r in c.eReferences.select(r|not r.isMany)) { %]
+	protected [%=r.eType.name%] [%=r.name%] = null;
 	[%}%]
 	
 	public [%=c.name%]() { 
@@ -35,7 +38,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	}
 	[%}%]
 	
-	[%for (r in c.eReferences) { %]
+	[%for (r in c.eReferences.select(r|r.isContainment and r.isMany)) { %]
 	public List<[%=r.eType.name%]> get[%=r.name.ftuc()%]() {
 		if ([%=r.name%] == null) {
 			[%=r.name%] = new PongoList<[%=r.eType.name%]>(this, "[%=r.name%]");

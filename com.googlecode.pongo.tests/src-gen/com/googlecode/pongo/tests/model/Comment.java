@@ -9,9 +9,11 @@ import org.googlecode.pongo.runtime.PongoList;
 public class Comment extends Pongo {
 	
 	protected List<Comment> replies = null;
+	protected Author author = null;
 	
 	public Comment() { 
 		super();
+		dbObject.put("author", new BasicDBObject());
 		dbObject.put("replies", new BasicDBObject());
 	}
 	
@@ -19,14 +21,6 @@ public class Comment extends Pongo {
 		super(dbObject);
 	}
 	
-	public String getAuthor() {
-		return parseString(dbObject.get("author")+"", "");
-	}
-	
-	public Comment setAuthor(String author) {
-		dbObject.put("author", author + "");
-		return this;
-	}
 	
 	public List<Comment> getReplies() {
 		if (replies == null) {

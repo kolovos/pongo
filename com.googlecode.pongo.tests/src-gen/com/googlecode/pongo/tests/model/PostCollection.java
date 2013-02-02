@@ -14,11 +14,15 @@ public class PostCollection extends PongoCollection {
 	}
 	
 	public Iterable<Post> getPosts() {
-		return new PongoCursorIterable<Post>(dbCollection.find());
+		return new PongoCursorIterable<Post>(this, dbCollection.find());
+	}
+	
+	public Iterable<Post> findPostsById(String id) {
+		return new PongoCursorIterable<Post>(this, dbCollection.find(new BasicDBObject("_id", id)));
 	}
 	
 	public Iterable<Post> findPostsByTitle(String q) {
-		return new PongoCursorIterable<Post>(dbCollection.find(new BasicDBObject("title", q + "")));
+		return new PongoCursorIterable<Post>(this, dbCollection.find(new BasicDBObject("title", q + "")));
 	}
 	
 }
