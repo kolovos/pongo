@@ -14,6 +14,9 @@ public class [%=c.name%]Collection extends PongoCollection {
 	
 	public [%=c.name%]Collection(DBCollection dbCollection) {
 		super(dbCollection);
+		[%for (a in c.eAttributes.select(a|a.isAnnotatedAs("searchable"))) { %]
+		createIndex("[%=a.name%]");
+		[%}%]
 	}
 	
 	public Iterable<[%=c.name%]> get[%=c.name%]s() {

@@ -10,6 +10,7 @@ public class PostCollection extends PongoCollection {
 	
 	public PostCollection(DBCollection dbCollection) {
 		super(dbCollection);
+		createIndex("title");
 	}
 	
 	public Iterable<Post> getPosts() {

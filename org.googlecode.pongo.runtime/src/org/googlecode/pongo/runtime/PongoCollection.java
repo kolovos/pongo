@@ -1,5 +1,6 @@
 package org.googlecode.pongo.runtime;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 
 public class PongoCollection {
@@ -16,6 +17,10 @@ public class PongoCollection {
 	
 	public void save(Pongo pongo) {
 		dbCollection.save(pongo.dbObject);
+	}
+	
+	public void createIndex(String field) {
+		dbCollection.ensureIndex(new BasicDBObject(field, 1), new BasicDBObject("background", true));
 	}
 	
 }

@@ -34,22 +34,17 @@ public class PerformanceTests {
 		
 		PostCollection postCollection = new PostCollection(db.getCollection("blog"));
 		
-		Post post = new FeaturedPost();
-		post.setTitle("Popular post");
-		List<Comment> comments = post.getComments();
+		for (int i=0;i<10000;i++) {
+			Post post = new FeaturedPost();
+			post.setTitle("Post " + i);
+			postCollection.save(post);
+		}
 		
-		Comment comment = new Comment();
-		comment.setAuthor("DK");
-		comments.add(comment);
-		
-		Comment reply = new Comment();
-		comment.getReplies().add(reply);
-		
-		postCollection.save(post);
-		
-		for (Post p : postCollection.findPostsByTitle("Popular post")) {
+		long now = System.currentTimeMillis();
+		for (Post p : postCollection.findPostsByTitle("Post 500")) {
 			System.err.println(p.getTitle());
 		}
+		System.err.println(System.currentTimeMillis() - now);
 	}
 	
 	@After
