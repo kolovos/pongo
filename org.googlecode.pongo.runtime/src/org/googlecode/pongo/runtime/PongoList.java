@@ -7,41 +7,44 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.DBObject;
 
 public class PongoList<T extends Pongo> extends ArrayList<T> {
 	
-	protected DBObject dbObject;
+	protected BasicDBList dbList;
 	protected Pongo container;
 	protected String containingFeature;
+	protected boolean containment = false;
 	
-	public PongoList(Pongo container, String containingFeature) {
+	public PongoList(Pongo container, String feature, boolean containment) {
 		this.container = container;
-		this.containingFeature = containingFeature;
-		this.dbObject = (DBObject) container.dbObject.get(containingFeature);
+		this.containingFeature = feature;
+		this.dbList = (BasicDBList) container.dbObject.get(feature);
+		this.containment = containment;
 	}
 	
 	@Override
 	public int size() {
-		return dbObject.keySet().size();
+		return dbList.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return size() == 0;
+		return dbList.isEmpty();
 	}
 
 	@Override
 	public boolean contains(Object o) {
 		if (o instanceof Pongo) {
-			return dbObject.keySet().contains(((Pongo) o).getId());
+			return dbList.contains(((Pongo)o).dbObject);
 		}
 		return false;
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		return new PongoListIterator<T>(dbObject);
+		return new PongoListIterator<T>(dbList);
 	}
 
 	@Override
@@ -59,7 +62,7 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 		if (!contains(e)) {
 			e.setContainer(container);
 			e.setContainingFeature(containingFeature);
-			dbObject.put(e.getId(), e.dbObject);
+			dbList.add(e.dbObject);
 			return true;
 		}
 		else {
@@ -69,27 +72,11 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 	
 	@Override
 	public boolean remove(Object o) {
-		
-		Pongo pongo = null;
-		if (o instanceof Pongo) pongo = (Pongo) o;
+		if (o instanceof Pongo) {
+			((Pongo) o).setContainer(null);
+			return dbList.remove(((Pongo) o).dbObject);
+		}
 		else return false;
-		
-		if (contains(o)) {
-			pongo.setContainer(null);
-			dbObject.removeField(pongo.getId());
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		for (Object o : c) {
-			if (!contains(o)) return false;
-		}
-		return c.size() > 0;
 	}
 
 	@Override
@@ -122,30 +109,12 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 
 	@Override
 	public void clear() {
-		List<String> keySet = new ArrayList<String>(dbObject.keySet());
-		for (String key : keySet) {
-			dbObject.removeField(key);
-		}
-	}
-	
-	protected String getIthKey(int index) {
-		Set<String> keySet = dbObject.keySet();
-		if (index > keySet.size() - 1) throw new ArrayIndexOutOfBoundsException();
-		
-		Iterator<String> keySetIterator = keySet.iterator();
-		for (int i=0;i<index+1;i++) {
-			if (keySetIterator.hasNext()) {
-				String key = keySetIterator.next();
-				if (i == index) return key;
-			}
-		}
-		
-		return null;
+		dbList.clear();
 	}
 	
 	@Override
 	public T get(int index) {
-		return (T) PongoFactory.getInstance().createPongo((DBObject) dbObject.get(getIthKey(index)));
+		return (T) PongoFactory.getInstance().createPongo((DBObject) dbList.get(index));
 	}
 
 	@Override
@@ -160,7 +129,7 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 
 	@Override
 	public T remove(int index) {
-		dbObject.removeField(getIthKey(index));
+		dbList.remove(index);
 		return null;
 	}
 

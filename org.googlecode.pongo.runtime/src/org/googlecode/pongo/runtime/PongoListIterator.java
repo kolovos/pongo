@@ -2,26 +2,27 @@ package org.googlecode.pongo.runtime;
 
 import java.util.Iterator;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.DBObject;
 
 public class PongoListIterator<T extends Pongo> implements Iterator<T>{
 	
-	protected DBObject dbObject = null;
-	protected Iterator<String> keySetIterator = null; 
+	protected BasicDBList dbList = null;
+	protected Iterator<Object> dbListIterator = null; 
 	
-	public PongoListIterator(DBObject dbObject) {
-		this.dbObject = dbObject;
-		keySetIterator = dbObject.keySet().iterator();
+	public PongoListIterator(BasicDBList dbList) {
+		this.dbList = dbList;
+		dbListIterator = dbList.iterator();
 	}
 		
 	@Override
 	public boolean hasNext() {
-		return keySetIterator.hasNext();
+		return dbListIterator.hasNext();
 	}
 
 	@Override
 	public T next() {
-		return (T) PongoFactory.getInstance().createPongo((DBObject) dbObject.get(keySetIterator.next()));
+		return (T) PongoFactory.getInstance().createPongo((DBObject) dbListIterator.next());
 	}
 
 	@Override

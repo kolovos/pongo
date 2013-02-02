@@ -24,6 +24,10 @@ public class Pongo {
 		this.dbObject = dbObject;
 	}
 	
+	public DBObject getDbObject() {
+		return dbObject;
+	}
+	
 	public String getId() {
 		return dbObject.get("_id") + "";
 	}
@@ -71,19 +75,22 @@ public class Pongo {
 	public void setContainingFeature(String containingFeature) {
 		this.containingFeature = containingFeature;
 	}
-	
-	protected void checkReferencedPongo(Pongo pongo) {
-		if (pongo == null) return;
-		if (pongo.getContainer() != null) throw new InvalidParameterException("References only work with top-level objects");
-		if (pongo.getPongoCollection() == null) throw new InvalidParameterException("Reference is not associated with a collection");
+		
+	protected void createReference(String name, Pongo to) {
+		dbObject.put(name, to.createDBRef());
 	}
 	
-	protected void createReference(String name, Pongo to) {
-		dbObject.put(name, new DBRef(to.getPongoCollection().getDbCollection().getDB(), to.getPongoCollection().getName(), to.getId()));
+	public DBRef createDBRef() {
+		if (!isReferencable()) throw new IllegalStateException("Attempted to create DBRef for non-referenceable object " + this);
+		return new DBRef(getPongoCollection().getDbCollection().getDB(), getPongoCollection().getName(), getId());
 	}
 	
 	protected Pongo resolveReference(String name) {
 		return PongoFactory.getInstance().resolveReference(dbObject.get(name));
+	}
+	
+	public boolean isReferencable() {
+		return (this.getContainer() == null && this.getPongoCollection() != null);
 	}
 	
 	protected String parseString(String str, String def) {

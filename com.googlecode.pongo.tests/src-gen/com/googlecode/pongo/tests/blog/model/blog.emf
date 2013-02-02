@@ -1,0 +1,25 @@
+package com.googlecode.pongo.tests.blog.model;
+
+@collection
+class Post {
+   @searchable
+   attr String title;
+   val Comment[*] comments;
+   ref Author author;
+}
+
+class FeaturedPost extends Post {
+   attr String reason;
+}
+
+class Comment {
+   attr String text;
+   ref Author author;
+   val Comment[*] replies;
+}
+
+@collection
+class Author {
+   @searchable
+   attr String name;
+}
