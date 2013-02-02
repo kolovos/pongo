@@ -48,6 +48,15 @@ public class Pongo {
 		return containingFeature;
 	}
 	
+	public String getPongoPath() {
+		if (container != null) {
+			return container.getPongoPath() + "." + containingFeature + "." + getId();
+		}
+		else {
+			return "";
+		}
+	}
+	
 	public void setContainingFeature(String containingFeature) {
 		this.containingFeature = containingFeature;
 	}

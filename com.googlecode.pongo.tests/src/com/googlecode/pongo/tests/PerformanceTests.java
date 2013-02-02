@@ -34,11 +34,14 @@ public class PerformanceTests {
 		post.setTitle("Popular post");
 		List<Comment> comments = post.getComments();
 		
-		for (int i=0;i<100;i++) {
-			Comment comment = new Comment();
-			comment.setAuthor("Author " + i);
-			comments.add(comment);
-		}
+		Comment comment = new Comment();
+		comment.setAuthor("Author");
+		comments.add(comment);
+		
+		Comment reply = new Comment();
+		comment.getReplies().add(reply);
+		
+		System.err.println(reply.getPongoPath());
 		
 		postCollection.save(post);
 		
