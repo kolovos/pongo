@@ -1,5 +1,7 @@
 package org.googlecode.pongo.runtime;
 
+import java.util.UUID;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -9,10 +11,19 @@ public class Pongo {
 	
 	public Pongo() {
 		this.dbObject = new BasicDBObject();
+		setId(UUID.randomUUID().toString());
 	}
 	
 	public Pongo(DBObject dbObject) {
 		this.dbObject = dbObject;
+	}
+	
+	protected String getId() {
+		return dbObject.get("_id") + "";
+	}
+	
+	private void setId(String id) {
+		dbObject.put("_id", id);
 	}
 	
 	protected String parseString(String str, String def) {

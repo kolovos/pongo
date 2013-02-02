@@ -9,6 +9,10 @@ public abstract class PongoCursorIterator<T> implements Iterable<T> {
 	
 	protected DBCursor dbCursor;
 	
+	public PongoCursorIterator(DBCursor dbCursor) {
+		this.dbCursor = dbCursor;
+	}
+	
 	public void setDbCursor(DBCursor dbCursor) {
 		this.dbCursor = dbCursor;
 	}

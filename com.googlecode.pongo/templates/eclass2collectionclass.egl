@@ -5,11 +5,16 @@ import org.googlecode.pongo.runtime.PongoCollection;
 import org.googlecode.pongo.runtime.PongoCursorIterator;
 
 import com.mongodb.DBObject;
+import com.mongodb.DBCollection;
 
 public class [%=c.name%]Collection extends PongoCollection {
 	
+	public [%=c.name%]Collection(DBCollection dbCollection) {
+		super(dbCollection);
+	}
+	
 	public Iterable<[%=c.name%]> get[%=c.name%]s() {
-		return new PongoCursorIterator<[%=c.name%]>() {
+		return new PongoCursorIterator<[%=c.name%]>(dbCollection.find()) {
 			@Override
 			protected [%=c.name%] create(DBObject dbObject) {
 				return new [%=c.name%](dbObject);
