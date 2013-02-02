@@ -12,18 +12,23 @@ public class Pongo {
 	public Pongo() {
 		this.dbObject = new BasicDBObject();
 		setId(UUID.randomUUID().toString());
+		setType(this.getClass().getCanonicalName());
 	}
 	
 	public Pongo(DBObject dbObject) {
 		this.dbObject = dbObject;
 	}
 	
-	protected String getId() {
+	public String getId() {
 		return dbObject.get("_id") + "";
 	}
 	
 	private void setId(String id) {
 		dbObject.put("_id", id);
+	}
+	
+	private void setType(String type) {
+		dbObject.put("_type", type);
 	}
 	
 	protected String parseString(String str, String def) {

@@ -1,5 +1,8 @@
 package com.googlecode.pongo.tests.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.googlecode.pongo.runtime.Pongo;
 import com.mongodb.DBObject;
 
@@ -18,5 +21,8 @@ public class Post extends Pongo {
 		return this;
 	}
 	
+	public List<Comment> getComments() {
+		DBObject comments = (DBObject) dbObject.get("comments");
+	}
 	
 }
