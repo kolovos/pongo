@@ -2,10 +2,9 @@ package com.googlecode.pongo.tests.model;
 
 import org.googlecode.pongo.runtime.PongoCollection;
 import org.googlecode.pongo.runtime.PongoCursorIterator;
-import org.googlecode.pongo.runtime.PongoFactory;
 
-import com.mongodb.DBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.BasicDBObject;
 
 public class PostCollection extends PongoCollection {
 	
@@ -14,11 +13,11 @@ public class PostCollection extends PongoCollection {
 	}
 	
 	public Iterable<Post> getPosts() {
-		return new PongoCursorIterator<Post>(dbCollection.find()) {
-			@Override
-			protected Post create(DBObject dbObject) {
-				return (Post) PongoFactory.getInstance().createPongo(dbObject);
-			}
-		};
+		return new PongoCursorIterator<Post>(dbCollection.find());
 	}
+	
+	public Iterable<Post> findPostsByTitle(String q) {
+		return new PongoCursorIterator<Post>(dbCollection.find(new BasicDBObject("title", q + "")));
+	}
+	
 }

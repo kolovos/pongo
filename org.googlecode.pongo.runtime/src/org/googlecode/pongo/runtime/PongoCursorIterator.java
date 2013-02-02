@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
-public abstract class PongoCursorIterator<T> implements Iterable<T> {
+public class PongoCursorIterator<T> implements Iterable<T> {
 	
 	protected DBCursor dbCursor;
 	
@@ -27,7 +27,7 @@ public abstract class PongoCursorIterator<T> implements Iterable<T> {
 
 			@Override
 			public T next() {
-				return create(dbCursor.next());
+				return (T) PongoFactory.getInstance().createPongo(dbCursor.next());
 			}
 
 			@Override
@@ -37,7 +37,5 @@ public abstract class PongoCursorIterator<T> implements Iterable<T> {
 
 		};
 	}
-	
-	protected abstract T create(DBObject dbObject); 
 	
 }

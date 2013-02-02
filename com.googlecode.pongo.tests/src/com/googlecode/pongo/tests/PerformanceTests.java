@@ -1,8 +1,10 @@
 package com.googlecode.pongo.tests;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
+import org.bson.BSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +13,9 @@ import com.googlecode.pongo.tests.model.Comment;
 import com.googlecode.pongo.tests.model.FeaturedPost;
 import com.googlecode.pongo.tests.model.Post;
 import com.googlecode.pongo.tests.model.PostCollection;
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 
 public class PerformanceTests {
@@ -35,18 +39,16 @@ public class PerformanceTests {
 		List<Comment> comments = post.getComments();
 		
 		Comment comment = new Comment();
-		comment.setAuthor("Author");
+		comment.setAuthor("DK");
 		comments.add(comment);
 		
 		Comment reply = new Comment();
 		comment.getReplies().add(reply);
 		
-		System.err.println(reply.getPongoPath());
-		
 		postCollection.save(post);
 		
-		for (Post p : postCollection.getPosts()) {
-			System.err.println(p);
+		for (Post p : postCollection.findPostsByTitle("Popular post")) {
+			System.err.println(p.getTitle());
 		}
 	}
 	

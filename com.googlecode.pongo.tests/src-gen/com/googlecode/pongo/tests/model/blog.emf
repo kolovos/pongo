@@ -2,6 +2,7 @@ package com.googlecode.pongo.tests.model;
 
 @collection
 class Post {
+   @searchable
    attr String title;
    val Comment[*] comments;
 }
