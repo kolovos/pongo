@@ -1,11 +1,14 @@
 package com.googlecode.pongo.tests;
 
-import static org.junit.Assert.*;
+import java.util.List;
+import java.util.UUID;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.googlecode.pongo.tests.model.Comment;
+import com.googlecode.pongo.tests.model.FeaturedPost;
 import com.googlecode.pongo.tests.model.Post;
 import com.googlecode.pongo.tests.model.PostCollection;
 import com.mongodb.DB;
@@ -17,23 +20,31 @@ public class PerformanceTests {
 	
 	@Before
 	public void setup() throws Exception {
-		
 		mongo = new Mongo();
-		
 	}
 	
 	@Test
 	public void test() {
+		
 		DB db = mongo.getDB("blog");
 		
 		PostCollection postCollection = new PostCollection(db.getCollection("blog"));
 		
-		for (int i=0;i<5;i++) {
-			Post post = new Post();
-			post.setTitle("Post " + i);
-			postCollection.save(post);
+		Post post = new FeaturedPost();
+		post.setTitle("Popular post");
+		List<Comment> comments = post.getComments();
+		
+		for (int i=0;i<100;i++) {
+			Comment comment = new Comment();
+			comment.setAuthor("Author " + i);
+			comments.add(comment);
 		}
 		
+		postCollection.save(post);
+		
+		for (Post p : postCollection.getPosts()) {
+			System.err.println(p);
+		}
 	}
 	
 	@After

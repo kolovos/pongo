@@ -10,11 +10,15 @@ import java.util.Set;
 import com.mongodb.DBObject;
 
 public class PongoList<T extends Pongo> extends ArrayList<T> {
-
-	protected DBObject dbObject;
 	
-	public PongoList(DBObject dbObject) {
-		this.dbObject = dbObject;
+	protected DBObject dbObject;
+	protected Pongo container;
+	protected String containingFeature;
+	
+	public PongoList(Pongo container, String containingFeature) {
+		this.container = container;
+		this.containingFeature = containingFeature;
+		this.dbObject = (DBObject) container.dbObject.get(containingFeature);
 	}
 	
 	@Override
@@ -53,6 +57,8 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 	@Override
 	public boolean add(T e) {
 		if (!contains(e)) {
+			e.setContainer(container);
+			e.setContainingFeature(containingFeature);
 			dbObject.put(e.getId(), e.dbObject);
 			return true;
 		}
@@ -69,6 +75,7 @@ public class PongoList<T extends Pongo> extends ArrayList<T> {
 		else return false;
 		
 		if (contains(o)) {
+			pongo.setContainer(null);
 			dbObject.removeField(pongo.getId());
 			return true;
 		}

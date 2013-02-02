@@ -8,6 +8,8 @@ import com.mongodb.DBObject;
 public class Pongo {
 	
 	protected DBObject dbObject;
+	protected Pongo container;
+	protected String containingFeature = "";
 	
 	public Pongo() {
 		this.dbObject = new BasicDBObject();
@@ -29,6 +31,25 @@ public class Pongo {
 	
 	private void setType(String type) {
 		dbObject.put("_type", type);
+	}
+	
+	public Pongo getContainer() {
+		return container;
+	}
+	
+	public void setContainer(Pongo container) {
+		this.container = container;
+		if (container == null) {
+			this.containingFeature = "";
+		}
+	}
+	
+	public String getContainingFeature() {
+		return containingFeature;
+	}
+	
+	public void setContainingFeature(String containingFeature) {
+		this.containingFeature = containingFeature;
 	}
 	
 	protected String parseString(String str, String def) {

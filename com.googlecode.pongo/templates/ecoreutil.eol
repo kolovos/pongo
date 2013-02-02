@@ -33,12 +33,13 @@ operation EModelElement getAnnotationValue(name : String, detail : String) : Any
 operation EModelElement getAnnotation(name : String) : EAnnotation {
 	var ann := self.eAnnotations.selectOne(a|a.source = name);
 	
+	/*
 	if (self.isTypeOf(EClass) and ann.isUndefined()) {
 		for (s in self.eSuperTypes) {
 			var sann := s.getAnnotation(name);
 			if (sann.isDefined()) return sann;
 		}
-	}
+	}*/
 	
 	return ann;
 	

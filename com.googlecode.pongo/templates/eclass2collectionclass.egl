@@ -3,6 +3,7 @@ package [%=c.ePackage.name%];
 
 import org.googlecode.pongo.runtime.PongoCollection;
 import org.googlecode.pongo.runtime.PongoCursorIterator;
+import org.googlecode.pongo.runtime.PongoFactory;
 
 import com.mongodb.DBObject;
 import com.mongodb.DBCollection;
@@ -17,7 +18,7 @@ public class [%=c.name%]Collection extends PongoCollection {
 		return new PongoCursorIterator<[%=c.name%]>(dbCollection.find()) {
 			@Override
 			protected [%=c.name%] create(DBObject dbObject) {
-				return new [%=c.name%](dbObject);
+				return ([%=c.name%]) PongoFactory.getInstance().createPongo(dbObject);
 			}
 		};
 	}

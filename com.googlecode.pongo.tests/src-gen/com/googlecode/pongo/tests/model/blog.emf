@@ -6,6 +6,10 @@ class Post {
    val Comment[*] comments;
 }
 
+class FeaturedPost extends Post {
+   attr String reason;
+}
+
 class Comment {
    attr String author;
    val Comment[*] replies;

@@ -1,16 +1,23 @@
 package com.googlecode.pongo.tests.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.googlecode.pongo.runtime.Pongo;
 import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
+import java.util.List;
+import org.googlecode.pongo.runtime.Pongo;
+import org.googlecode.pongo.runtime.PongoList;
 
 public class Post extends Pongo {
 	
-	public Post() { super(); }
+	protected List<Comment> comments = null;
 	
-	public Post(DBObject dbObject) { super(dbObject); };
+	public Post() { 
+		super();
+		dbObject.put("comments", new BasicDBObject());
+	}
+	
+	public Post(DBObject dbObject) {
+		super(dbObject);
+	}
 	
 	public String getTitle() {
 		return parseString(dbObject.get("title")+"", "");
@@ -22,7 +29,9 @@ public class Post extends Pongo {
 	}
 	
 	public List<Comment> getComments() {
-		DBObject comments = (DBObject) dbObject.get("comments");
+		if (comments == null) {
+			comments = new PongoList<Comment>(this, "comments");
+		}
+		return comments;
 	}
-	
 }

@@ -1,14 +1,28 @@
 [%import "javautil.eol";%]
 package [%=c.ePackage.name%];
 
-import org.googlecode.pongo.runtime.Pongo;
 import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
+import java.util.List;
+import org.googlecode.pongo.runtime.Pongo;
+import org.googlecode.pongo.runtime.PongoList;
 
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
-	public [%=c.name%]() { super(); }
+	[%for (r in c.eReferences) { %]
+	protected List<[%=r.eType.name%]> [%=r.name%] = null;
+	[%}%]
 	
-	public [%=c.name%](DBObject dbObject) { super(dbObject); };
+	public [%=c.name%]() { 
+		super();
+		[%for (r in c.eReferences) { %]
+		dbObject.put("[%=r.name%]", new BasicDBObject());
+		[%}%]
+	}
+	
+	public [%=c.name%](DBObject dbObject) {
+		super(dbObject);
+	}
 	
 	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
 	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
@@ -19,18 +33,14 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		dbObject.put("[%=a.name%]", [%=a.name%] + "");
 		return this;
 	}
-	
 	[%}%]
 	
-	[%for (a in c.eReferences.select(a|not a.isMany)) { %]
-	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
-		return [%=a.eType.getParseMethod()%](dbObject.get("[%=a.name%]")+"", [%=a.getDefaultJavaValue()%]);
+	[%for (r in c.eReferences) { %]
+	public List<[%=r.eType.name%]> get[%=r.name.ftuc()%]() {
+		if ([%=r.name%] == null) {
+			[%=r.name%] = new PongoList<[%=r.eType.name%]>(this, "[%=r.name%]");
+		}
+		return [%=r.name%];
 	}
-	
-	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
-		dbObject.put("[%=a.name%]", [%=a.name%] + "");
-		return this;
-	}
-	
 	[%}%]
 }
