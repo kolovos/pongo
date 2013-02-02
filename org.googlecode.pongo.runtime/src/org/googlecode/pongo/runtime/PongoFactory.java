@@ -2,6 +2,7 @@ package org.googlecode.pongo.runtime;
 
 import org.apache.commons.collections.map.ReferenceMap;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import com.mongodb.DBRef;
@@ -27,18 +28,23 @@ public class PongoFactory {
 		cache.clear();
 	}
 	
-	public Pongo resolveReference(DBRef dbRef) {
-		String fullyQualifiedId = dbRef.getDB().getName() + "." + dbRef.getRef() + "." + dbRef.getId().toString();
-		Pongo pongo = (Pongo) cache.get(fullyQualifiedId);
-		if (pongo == null) {
-			System.err.println(dbRef);
-			DBObject dbObject = dbRef.getDB().getCollection(dbRef.getRef()).findOne(dbRef);
-			System.err.println("dbObject: " + dbObject);
-			if (dbObject != null) {
-				pongo = createPongo(dbObject, dbRef.getDB().getCollection(dbRef.getRef()));
+	public Pongo resolveReference(Object ref) {
+		if (ref instanceof DBRef) {
+			DBRef dbRef = (DBRef) ref;
+		
+			String fullyQualifiedId = dbRef.getDB().getName() + "." + dbRef.getRef() + "." + dbRef.getId().toString();
+			Pongo pongo = (Pongo) cache.get(fullyQualifiedId);
+			if (pongo == null) {
+				DBObject dbObject = dbRef.getDB().getCollection(dbRef.getRef()).findOne(new BasicDBObject("_id", dbRef.getId()));
+				if (dbObject != null) {
+					pongo = createPongo(dbObject, dbRef.getDB().getCollection(dbRef.getRef()));
+				}
 			}
+			return pongo;
 		}
-		return pongo;
+		else {
+			return null;
+		}
 	}
 	
 	public Pongo createPongo(DBObject dbObject, DBCollection dbCollection) {

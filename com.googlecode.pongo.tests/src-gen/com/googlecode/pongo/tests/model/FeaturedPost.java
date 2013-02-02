@@ -26,4 +26,6 @@ public class FeaturedPost extends Post {
 		return this;
 	}
 	
+	
+	
 }

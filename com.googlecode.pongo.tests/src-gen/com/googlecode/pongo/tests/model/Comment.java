@@ -28,4 +28,21 @@ public class Comment extends Pongo {
 		}
 		return replies;
 	}
+	
+	public Comment setAuthor(Author author) {
+		checkReferencedPongo(author);
+		if (author != null) {
+			createReference("author", author);
+			this.author = author;
+		}
+		return this;
+	}
+	
+	public Author getAuthor() {
+		if (author == null) {
+			author = (Author) resolveReference("author");
+		}
+		return author;
+	}
+	
 }

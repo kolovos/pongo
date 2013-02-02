@@ -82,6 +82,10 @@ public class Pongo {
 		dbObject.put(name, new DBRef(to.getPongoCollection().getDbCollection().getDB(), to.getPongoCollection().getName(), to.getId()));
 	}
 	
+	protected Pongo resolveReference(String name) {
+		return PongoFactory.getInstance().resolveReference(dbObject.get(name));
+	}
+	
 	protected String parseString(String str, String def) {
 		if (str == null) return def;
 		else return str;

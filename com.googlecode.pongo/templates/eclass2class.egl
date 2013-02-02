@@ -46,4 +46,23 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		return [%=r.name%];
 	}
 	[%}%]
+	
+	[%for (r in c.eReferences.select(r|not r.isContainment and not r.isMany)) { %]
+	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
+		checkReferencedPongo([%=r.name%]);
+		if ([%=r.name%] != null) {
+			createReference("[%=r.name%]", [%=r.name%]);
+			this.[%=r.name%] = [%=r.name%];
+		}
+		return this;
+	}
+	
+	public [%=r.eType.name%] get[%=r.name.ftuc()%]() {
+		if ([%=r.name%] == null) {
+			[%=r.name%] = ([%=r.eType.name%]) resolveReference("[%=r.name%]");
+		}
+		return [%=r.name%];
+	}
+	[%}%]
+	
 }
