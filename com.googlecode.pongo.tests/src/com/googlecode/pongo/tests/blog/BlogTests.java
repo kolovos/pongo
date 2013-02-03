@@ -1,9 +1,9 @@
 package com.googlecode.pongo.tests.blog;
 
-import org.googlecode.pongo.runtime.PongoFactory;
 import org.junit.After;
 import org.junit.Before;
 
+import com.googlecode.pongo.runtime.PongoFactory;
 import com.googlecode.pongo.tests.blog.model.AuthorCollection;
 import com.googlecode.pongo.tests.blog.model.MemberCollection;
 import com.googlecode.pongo.tests.blog.model.PostCollection;

@@ -1,8 +1,8 @@
 package com.googlecode.pongo.tests.blog.model;
 
-import org.googlecode.pongo.runtime.PongoCollection;
-import org.googlecode.pongo.runtime.PongoCursorIterable;
 
+import com.googlecode.pongo.runtime.PongoCollection;
+import com.googlecode.pongo.runtime.PongoCursorIterable;
 import com.mongodb.DBCollection;
 import com.mongodb.BasicDBObject;
 

@@ -2,9 +2,9 @@ package com.googlecode.pongo.tests.blog;
 
 import static junit.framework.Assert.assertEquals;
 
-import org.googlecode.pongo.runtime.PongoFactory;
 import org.junit.Test;
 
+import com.googlecode.pongo.runtime.PongoFactory;
 import com.googlecode.pongo.tests.blog.model.Post;
 
 public class MultiValuedAttributesTests extends BlogTests {
