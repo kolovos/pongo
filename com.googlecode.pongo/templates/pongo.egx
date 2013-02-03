@@ -6,7 +6,7 @@ rule EClass2Class
 	
 	template : "eclass2class.egl"
 	
-	target : f(c.name + ".java")
+	target : c.name + ".java"
 		
 }
 
@@ -17,12 +17,6 @@ rule EClass2CollectionClass
 	
 	template : "eclass2collectionclass.egl"
 	
-	target : f(c.name + "Collection.java")
+	target : c.name + "Collection.java"
 	
-}
-
-operation f(r : String) {
-	//return "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/org.ossmeter.metricprovider.svnloc.pongo/src-gen/org/ossmeter/metricprovider/svnloc/pongo/model/"
-	return "/Users/dimitrioskolovos/Projects/Eclipse/appengine-juno/workspace/com.googlecode.pongo.tests/src-gen/com/googlecode/pongo/tests/blog/model/"
-		+ r;
 }
