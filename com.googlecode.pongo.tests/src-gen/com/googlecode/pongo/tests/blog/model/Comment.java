@@ -32,6 +32,7 @@ public class Comment extends Pongo {
 		return this;
 	}
 	
+	
 	public List<Comment> getReplies() {
 		if (replies == null) {
 			replies = new PongoList<Comment>(this, "replies", true);

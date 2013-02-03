@@ -85,6 +85,11 @@ public class Pongo {
 		return new DBRef(getPongoCollection().getDbCollection().getDB(), getPongoCollection().getName(), getId());
 	}
 	
+	public void save() {
+		if (pongoCollection == null) throw new IllegalStateException("Object not associated with a collection");
+		pongoCollection.save(this);
+	}
+	
 	protected Pongo resolveReference(String name) {
 		return PongoFactory.getInstance().resolveReference(dbObject.get(name));
 	}

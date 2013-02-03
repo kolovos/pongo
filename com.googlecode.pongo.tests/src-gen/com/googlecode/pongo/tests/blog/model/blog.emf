@@ -4,6 +4,7 @@ package com.googlecode.pongo.tests.blog.model;
 class Post {
    @searchable
    attr String title;
+   attr String[*] tags;
    val Comment[*] comments;
    ref Author author;
 }

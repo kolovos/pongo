@@ -7,15 +7,18 @@ import com.mongodb.BasicDBList;
 import java.util.List;
 import org.googlecode.pongo.runtime.Pongo;
 import org.googlecode.pongo.runtime.PongoList;
+import org.googlecode.pongo.runtime.PrimitiveList;
 
 public class Post extends Pongo {
 	
+	protected List<String> tags = null;
 	protected List<Comment> comments = null;
 	protected Author author = null;
 	
 	public Post() { 
 		super();
 		dbObject.put("author", new BasicDBObject());
+		dbObject.put("tags", new BasicDBList());
 		dbObject.put("comments", new BasicDBList());
 	}
 	
@@ -30,6 +33,13 @@ public class Post extends Pongo {
 	public Post setTitle(String title) {
 		dbObject.put("title", title + "");
 		return this;
+	}
+	
+	public List<String> getTags() {
+		if (tags == null) {
+			tags = new PrimitiveList<String>((BasicDBList) dbObject.get("tags"));
+		}
+		return tags;
 	}
 	
 	public List<Comment> getComments() {
