@@ -1,19 +1,21 @@
 package com.googlecode.pongo.tests.blog.model;
 
-import com.googlecode.pongo.runtime.Pongo;
-import com.googlecode.pongo.runtime.PongoList;
-import com.googlecode.pongo.runtime.PrimitiveList;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBList;
 
 import java.util.List;
+import com.googlecode.pongo.runtime.Pongo;
+import com.googlecode.pongo.runtime.PongoList;
+import com.googlecode.pongo.runtime.PrimitiveList;
+import com.googlecode.pongo.runtime.PongoFactory;
 
 public class Post extends Pongo {
 	
 	protected List<String> tags = null;
 	protected List<Comment> comments = null;
 	protected Author author = null;
+	protected Stats stats = null;
 	
 	public Post() { 
 		super();
@@ -64,4 +66,18 @@ public class Post extends Pongo {
 		return author;
 	}
 	
+	public Stats getStats() {
+		if (stats == null && dbObject.containsField("stats")) {
+			stats = (Stats) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("stats"));
+		}
+		return stats;
+	}
+	
+	public Post setStats(Stats stats) {
+		if (stats != null) {
+			dbObject.put("stats", stats.getDbObject());
+			this.stats = stats;
+		}
+		return this;
+	}
 }

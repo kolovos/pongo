@@ -6,9 +6,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.BasicDBList;
 
 import java.util.List;
-import org.googlecode.pongo.runtime.Pongo;
-import org.googlecode.pongo.runtime.PongoList;
-import org.googlecode.pongo.runtime.PrimitiveList;
+import com.googlecode.pongo.runtime.Pongo;
+import com.googlecode.pongo.runtime.PongoList;
+import com.googlecode.pongo.runtime.PrimitiveList;
+import com.googlecode.pongo.runtime.PongoFactory;
 
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
@@ -21,7 +22,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	public [%=c.name%]() { 
 		super();
-		[%for (r in c.eReferences.select(r|not r.isMany)) { %]
+		[%for (r in c.eReferences.select(r|not r.isMany and not r.isContainment)) { %]
 		dbObject.put("[%=r.name%]", new BasicDBObject());
 		[%}%]
 		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
@@ -79,4 +80,20 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	}
 	[%}%]
 	
+	[%for (r in c.eReferences.select(r|r.isContainment and not r.isMany)) { %]
+	public [%=r.eType.name%] get[%=r.name.ftuc()%]() {
+		if ([%=r.name%] == null && dbObject.containsField("[%=r.name%]")) {
+			[%=r.name%] = ([%=r.eType.name%]) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("[%=r.name%]"));
+		}
+		return [%=r.name%];
+	}
+	
+	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
+		if ([%=r.name%] != null) {
+			dbObject.put("[%=r.name%]", [%=r.name%].getDbObject());
+			this.[%=r.name%] = [%=r.name%];
+		}
+		return this;
+	}
+	[%}%]
 }

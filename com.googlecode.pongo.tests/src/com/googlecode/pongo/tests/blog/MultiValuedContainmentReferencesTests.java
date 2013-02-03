@@ -7,7 +7,7 @@ import org.junit.Test;
 import com.googlecode.pongo.tests.blog.model.Comment;
 import com.googlecode.pongo.tests.blog.model.Post;
 
-public class ContainmentReferencesTests extends BlogTests {
+public class MultiValuedContainmentReferencesTests extends BlogTests {
 
 	@Test
 	public void testNoDuplicatesInContainmentReference() {

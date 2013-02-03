@@ -8,7 +8,7 @@ import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 
 @RunWith(Suite.class)
-@SuiteClasses({ContainmentReferencesTests.class, MultiValuedAttributesTests.class,
+@SuiteClasses({MultiValuedContainmentReferencesTests.class, MultiValuedAttributesTests.class,
 	NonContainmentReferencesTests.class
 })
 public class BlogTestsSuite {

@@ -11,10 +11,19 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="comments" upperBound="-1" eType="//Comment" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="//Author"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="stats" eType="//Stats" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturedPost" eSuperTypes="//Post">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reason">
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Stats">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageloads">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visitors">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Comment">

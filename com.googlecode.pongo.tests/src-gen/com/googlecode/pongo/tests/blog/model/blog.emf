@@ -7,10 +7,16 @@ class Post {
    attr String[*] tags;
    val Comment[*] comments;
    ref Author author;
+   val Stats stats;
 }
 
 class FeaturedPost extends Post {
    attr String reason;
+}
+
+class Stats {
+   attr int pageloads;
+   attr int visitors;
 }
 
 class Comment {
