@@ -86,8 +86,13 @@ public class Pongo {
 	}
 	
 	public void save() {
+		save(this.getPongoCollection());
+	}
+	
+	public void save(PongoCollection pongoCollection) {
 		if (pongoCollection == null) throw new IllegalStateException("Object not associated with a collection");
-		pongoCollection.save(this);
+		this.setPongoCollection(pongoCollection);
+		pongoCollection.dbCollection.save(dbObject);
 	}
 	
 	protected Pongo resolveReference(String name) {

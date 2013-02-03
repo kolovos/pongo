@@ -20,22 +20,41 @@ public class PongoList<T extends Pongo> extends BasicDBListWrapper<T> {
 	
 	@Override
 	public Iterator<T> iterator() {
-		return new PongoListIterator<T>(dbList);
+		return new PongoListIterator<T>(this);
 	}
 	
 	protected void added(T t) {
-		t.setContainer(container);
-		t.setContainingFeature(containingFeature);
+		if (containment) {
+			t.setContainer(container);
+			t.setContainingFeature(containingFeature);
+		}
 	};
 	
 	@Override
+	protected void removed(Object o) {
+		if (containment) {
+			((Pongo) o).setContainer(null);
+		}
+	}
+	
+	@Override
 	protected T wrap(Object o) {
-		return (T) PongoFactory.getInstance().createPongo((DBObject) o);
+		if (containment) {
+			return (T) PongoFactory.getInstance().createPongo((DBObject) o);
+		}
+		else {
+			return (T) PongoFactory.getInstance().resolveReference(o);
+		}
 	}
 	
 	@Override
 	protected Object unwrap(Object o) {
-		return ((Pongo) o).getDbObject();
+		if (containment) {
+			return ((Pongo) o).getDbObject();
+		}
+		else {
+			return ((Pongo) o).createDBRef();
+		}
 	}
 
 }

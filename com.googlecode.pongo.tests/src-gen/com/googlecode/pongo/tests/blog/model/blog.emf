@@ -17,10 +17,26 @@ class Comment {
    attr String text;
    ref Author author;
    val Comment[*] replies;
+   ref Member[*] liked;
+   ref Member[*] disliked;
 }
 
-@collection
-class Author {
+class Person {
    @searchable
    attr String name;
 }
+
+@collection
+class Author extends Person {
+
+}
+
+@collection
+class Member extends Person {
+   
+}
+
+/*
+@stub(c="com.foo.Foo")
+class Foo {}
+*/

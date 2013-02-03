@@ -7,16 +7,21 @@ import com.mongodb.BasicDBList;
 import java.util.List;
 import org.googlecode.pongo.runtime.Pongo;
 import org.googlecode.pongo.runtime.PongoList;
+import org.googlecode.pongo.runtime.PrimitiveList;
 
 public class Comment extends Pongo {
 	
 	protected List<Comment> replies = null;
+	protected List<Member> liked = null;
+	protected List<Member> disliked = null;
 	protected Author author = null;
 	
 	public Comment() { 
 		super();
 		dbObject.put("author", new BasicDBObject());
 		dbObject.put("replies", new BasicDBList());
+		dbObject.put("liked", new BasicDBList());
+		dbObject.put("disliked", new BasicDBList());
 	}
 	
 	public Comment(DBObject dbObject) {
@@ -38,6 +43,18 @@ public class Comment extends Pongo {
 			replies = new PongoList<Comment>(this, "replies", true);
 		}
 		return replies;
+	}
+	public List<Member> getLiked() {
+		if (liked == null) {
+			liked = new PongoList<Member>(this, "liked", false);
+		}
+		return liked;
+	}
+	public List<Member> getDisliked() {
+		if (disliked == null) {
+			disliked = new PongoList<Member>(this, "disliked", false);
+		}
+		return disliked;
 	}
 	
 	public Comment setAuthor(Author author) {

@@ -7,12 +7,12 @@ import com.mongodb.DBObject;
 
 public class PongoListIterator<T extends Pongo> implements Iterator<T>{
 	
-	protected BasicDBList dbList = null;
 	protected Iterator<Object> dbListIterator = null; 
+	protected PongoList<T> pongoList = null;
 	
-	public PongoListIterator(BasicDBList dbList) {
-		this.dbList = dbList;
-		dbListIterator = dbList.iterator();
+	public PongoListIterator(PongoList<T> pongoList) {
+		this.pongoList = pongoList;
+		dbListIterator = pongoList.dbList.iterator();
 	}
 		
 	@Override
@@ -22,7 +22,7 @@ public class PongoListIterator<T extends Pongo> implements Iterator<T>{
 
 	@Override
 	public T next() {
-		return (T) PongoFactory.getInstance().createPongo((DBObject) dbListIterator.next());
+		return pongoList.wrap(dbListIterator.next());
 	}
 
 	@Override

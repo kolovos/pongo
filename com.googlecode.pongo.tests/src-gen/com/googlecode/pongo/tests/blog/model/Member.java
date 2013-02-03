@@ -9,14 +9,14 @@ import org.googlecode.pongo.runtime.Pongo;
 import org.googlecode.pongo.runtime.PongoList;
 import org.googlecode.pongo.runtime.PrimitiveList;
 
-public class Author extends Person {
+public class Member extends Person {
 	
 	
-	public Author() { 
+	public Member() { 
 		super();
 	}
 	
-	public Author(DBObject dbObject) {
+	public Member(DBObject dbObject) {
 		super(dbObject);
 	}
 	

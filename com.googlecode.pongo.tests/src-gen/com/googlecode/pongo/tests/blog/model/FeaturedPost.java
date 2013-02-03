@@ -7,6 +7,7 @@ import com.mongodb.BasicDBList;
 import java.util.List;
 import org.googlecode.pongo.runtime.Pongo;
 import org.googlecode.pongo.runtime.PongoList;
+import org.googlecode.pongo.runtime.PrimitiveList;
 
 public class FeaturedPost extends Post {
 	

@@ -10,7 +10,6 @@ public class AuthorCollection extends PongoCollection {
 	
 	public AuthorCollection(DBCollection dbCollection) {
 		super(dbCollection);
-		createIndex("name");
 	}
 	
 	public Iterable<Author> getAuthors() {

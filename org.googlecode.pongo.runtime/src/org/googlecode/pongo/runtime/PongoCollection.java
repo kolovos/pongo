@@ -15,11 +15,6 @@ public class PongoCollection {
 		this.dbCollection = dbCollection;
 	}
 	
-	public void save(Pongo pongo) {
-		dbCollection.save(pongo.dbObject);
-		pongo.setPongoCollection(this);
-	}
-	
 	public void createIndex(String field) {
 		dbCollection.ensureIndex(new BasicDBObject(field, 1), new BasicDBObject("background", true));
 	}

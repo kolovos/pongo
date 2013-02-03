@@ -9,17 +9,25 @@ import org.googlecode.pongo.runtime.Pongo;
 import org.googlecode.pongo.runtime.PongoList;
 import org.googlecode.pongo.runtime.PrimitiveList;
 
-public class Author extends Person {
+public class Person extends Pongo {
 	
 	
-	public Author() { 
+	public Person() { 
 		super();
 	}
 	
-	public Author(DBObject dbObject) {
+	public Person(DBObject dbObject) {
 		super(dbObject);
 	}
 	
+	public String getName() {
+		return parseString(dbObject.get("name")+"", "");
+	}
+	
+	public Person setName(String name) {
+		dbObject.put("name", name + "");
+		return this;
+	}
 	
 	
 	

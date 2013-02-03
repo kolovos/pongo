@@ -27,7 +27,7 @@ public class [%=c.name%]Collection extends PongoCollection {
 		return new PongoCursorIterable<[%=c.name%]>(this, dbCollection.find(new BasicDBObject("_id", id)));
 	}
 	
-	[%for (a in c.eAttributes.select(a|a.isAnnotatedAs("searchable"))) { %]
+	[%for (a in c.eAllAttributes.select(a|a.isAnnotatedAs("searchable"))) { %]
 	public Iterable<[%=c.name%]> find[%=c.name%]sBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
 		return new PongoCursorIterable<[%=c.name%]>(this, dbCollection.find(new BasicDBObject("[%=a.name%]", q + "")));
 	}

@@ -19,11 +19,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="#//Author"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="replies" upperBound="-1"
         eType="#//Comment" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="liked" upperBound="-1"
+        eType="#//Member"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="disliked" upperBound="-1"
+        eType="#//Member"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Author">
-    <eAnnotations source="collection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Person">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="searchable"/>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Author" eSuperTypes="#//Person">
+    <eAnnotations source="collection"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Member" eSuperTypes="#//Person">
+    <eAnnotations source="collection"/>
   </eClassifiers>
 </ecore:EPackage>
