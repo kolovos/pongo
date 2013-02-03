@@ -1,0 +1,45 @@
+package com.googlecode.pongo.runtime;
+
+import java.util.Iterator;
+
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
+public class PongoCursorIterable<T> implements Iterable<T> {
+	
+	protected DBCursor dbCursor;
+	protected PongoCollection pongoCollection;
+	
+	public PongoCursorIterable(PongoCollection pongoCollection, DBCursor dbCursor) {
+		this.dbCursor = dbCursor;
+		this.pongoCollection = pongoCollection;
+	}
+	
+	public void setDbCursor(DBCursor dbCursor) {
+		this.dbCursor = dbCursor;
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
+		return new Iterator<T>() {
+			@Override
+			public boolean hasNext() {
+				return dbCursor.hasNext();
+			}
+
+			@Override
+			public T next() {
+				Pongo next = (Pongo) PongoFactory.getInstance().createPongo(dbCursor.next());
+				next.setPongoCollection(pongoCollection);
+				return (T) next;
+			}
+
+			@Override
+			public void remove() {
+				throw new UnsupportedOperationException();
+			}
+
+		};
+	}
+	
+}
