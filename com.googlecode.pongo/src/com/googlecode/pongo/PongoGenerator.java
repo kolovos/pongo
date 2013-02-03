@@ -8,7 +8,6 @@ import org.eclipse.emf.emfatic.core.generator.ecore.EcoreGenerator;
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.emc.emf.EmfModel;
-import org.eclipse.epsilon.eol.EolModule;
 
 public class PongoGenerator {
 	
@@ -45,6 +44,7 @@ public class PongoGenerator {
 	}
 	
 	protected void generate(EmfModel model, File directory) throws Exception {
+		
 		
 		EglFileGeneratingTemplateFactory templateFactory = new EglFileGeneratingTemplateFactory();
 		templateFactory.setOutputRoot(directory.getAbsolutePath());
