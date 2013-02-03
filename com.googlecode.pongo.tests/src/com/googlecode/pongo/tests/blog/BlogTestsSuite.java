@@ -9,7 +9,7 @@ import junit.framework.Test;
 
 @RunWith(Suite.class)
 @SuiteClasses({MultiValuedContainmentReferencesTests.class, MultiValuedAttributesTests.class,
-	NonContainmentReferencesTests.class
+	NonContainmentReferencesTests.class, SingleValuedContainmentReferencesTests.class
 })
 public class BlogTestsSuite {
 	
