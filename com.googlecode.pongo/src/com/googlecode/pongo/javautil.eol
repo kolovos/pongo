@@ -12,6 +12,8 @@ operation EClassifier getJavaName() {
 		case "EString": return "String";
 		case "ELong": return "long";
 		case "EInt": return "int";
+		case "EBoolean": return "boolean";
+		case "EFloat": return "float";
 		default: return self.name;
 	}
 }
@@ -22,6 +24,7 @@ operation EClassifier getParseMethod() {
 		case "EInt": return "parseInteger";
 		case "EBoolean": return "parseBoolean";
 		case "EString": return "parseString";
+		case "EFloat": return "parseFloat";
 		default: return "";
 	}
 }
@@ -29,6 +32,9 @@ operation EClassifier getParseMethod() {
 operation EAttribute getDefaultJavaValue() {
 	if (self.eType.name == "EString") {
 		return '"' +  self.defaultValue + '"';
+	}
+	else if (self.eType.name == "EFloat") {
+		return self.defaultValue + "f";
 	}
 	else {
 		return self.defaultValue;

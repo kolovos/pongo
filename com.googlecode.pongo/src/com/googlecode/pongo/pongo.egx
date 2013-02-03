@@ -1,13 +1,24 @@
 import "javautil.eol";
 import "ecoreutil.eol";
 
+pre {
+
+	var keywords = List{"abstract", "volatile", "transient", "interface", "container"};
+	
+	for (e in EStructuralFeature.all) {
+		if (keywords.includes(e.name)) {
+			e.name = "_" + e.name;
+		}
+	}
+}
+
 rule EClass2Class 
 	transform c : EClass {
 	
 	template : "eclass2class.egl"
 	
 	target : c.name + ".java"
-		
+	
 }
 
 rule EClass2CollectionClass 

@@ -132,6 +132,18 @@ public class Pongo {
 		}
 	}
 	
+	protected float parseFloat(String str, float def) {
+		if (str == null) return def;
+		else {
+			try {
+				return Float.parseFloat(str);
+			}
+			catch (Exception ex) {
+				return def;
+			}
+		}
+	}
+	
 	protected boolean parseBoolean(String str, boolean def) {
 		if (str == null) return def;
 		else {
