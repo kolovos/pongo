@@ -5,8 +5,9 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.core.resources.IFile"
-            id="com.googlecode.pongo.contribution1">
+            id="com.googlecode.pongo.ui.ecore"
+            nameFilter="*.ecore"
+            objectClass="org.eclipse.core.resources.IFile">
          <menu
                label="Pongo"
                path="additions"
@@ -16,13 +17,36 @@
             </separator>
          </menu>
          <action
-               label="Generate Pongos"
                class="com.googlecode.pongo.ui.PongoObjectActionDelegate"
-               menubarPath="com.googlecode.pongo.menu1/group1"
                enablesFor="1"
-               id="com.googlecode.pongo.newAction">
+               icon="icons/generateall.png"
+               id="com.googlecode.pongo.newAction"
+               label="Generate Pongos"
+               menubarPath="com.googlecode.pongo.menu1/group1">
          </action>
       </objectContribution>
+      <objectContribution
+            id="com.googlecode.pongo.ui.emfatic"
+            nameFilter="*.emf"
+            objectClass="org.eclipse.core.resources.IFile">
+         <menu
+               label="Pongo"
+               path="additions"
+               id="com.googlecode.pongo.menu1">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="com.googlecode.pongo.ui.PongoObjectActionDelegate"
+               enablesFor="1"
+               icon="icons/generateall.png"
+               id="com.googlecode.pongo.newAction"
+               label="Generate Pongos"
+               menubarPath="com.googlecode.pongo.menu1/group1">
+         </action>
+      </objectContribution>
+
    </extension>
 
 </plugin>

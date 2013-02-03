@@ -1,0 +1,22 @@
+import "javautil.eol";
+import "ecoreutil.eol";
+
+rule EClass2Class 
+	transform c : EClass {
+	
+	template : "eclass2class.egl"
+	
+	target : c.name + ".java"
+		
+}
+
+rule EClass2CollectionClass 
+	transform c : EClass {
+	
+	guard : c.isAnnotatedAs("collection")
+	
+	template : "eclass2collectionclass.egl"
+	
+	target : c.name + "Collection.java"
+	
+}

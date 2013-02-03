@@ -14,8 +14,13 @@ public class PongoGenerator {
 	
 	public static void main(String[] args) throws Exception {
 		
+		if (args.length != 1) {
+			System.out.println("Use: PongoGenerator foo.emf or PongoGenerator foo.ecore");
+			return;
+		}
+		
 		PongoGenerator pg = new PongoGenerator();
-		pg.generate(new File("test/blog.emf"));
+		pg.generate(new File(args[0]));
 		
 	}
 	
@@ -37,7 +42,6 @@ public class PongoGenerator {
 			ecoreGenerator.generate(inputFile, true);
 			generate(new File(inputFile.getAbsolutePath().replaceAll("\\.emf$", ".ecore")));
 		}
-		
 	}
 	
 	protected void generate(EmfModel model, File directory) throws Exception {
@@ -46,7 +50,7 @@ public class PongoGenerator {
 		templateFactory.setOutputRoot(directory.getAbsolutePath());
 		EgxModule module = new EgxModule(templateFactory);
 		
-		module.parse(new File("templates/pongo.egx"));
+		module.parse(PongoGenerator.class.getResource("pongo.egx").toURI());
 		module.getContext().getModelRepository().addModel(model);
 		module.execute();
 		

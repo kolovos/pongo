@@ -1,0 +1,82 @@
+[%import "javautil.eol";%]
+package [%=c.ePackage.name%];
+
+import com.mongodb.DBObject;
+import com.mongodb.BasicDBObject;
+import com.mongodb.BasicDBList;
+
+import java.util.List;
+import org.googlecode.pongo.runtime.Pongo;
+import org.googlecode.pongo.runtime.PongoList;
+import org.googlecode.pongo.runtime.PrimitiveList;
+
+public class [%=c.name%] extends [%=c.getJavaExtends()%] {
+	
+	[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
+	protected List<[%=sf.eType.getJavaName()%]> [%=sf.name%] = null;
+	[%}%]
+	[%for (r in c.eReferences.select(r|not r.isMany)) { %]
+	protected [%=r.eType.name%] [%=r.name%] = null;
+	[%}%]
+	
+	public [%=c.name%]() { 
+		super();
+		[%for (r in c.eReferences.select(r|not r.isMany)) { %]
+		dbObject.put("[%=r.name%]", new BasicDBObject());
+		[%}%]
+		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
+		dbObject.put("[%=sf.name%]", new BasicDBList());
+		[%}%]
+	}
+	
+	public [%=c.name%](DBObject dbObject) {
+		super(dbObject);
+	}
+	
+	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
+	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
+		return [%=a.eType.getParseMethod()%](dbObject.get("[%=a.name%]")+"", [%=a.getDefaultJavaValue()%]);
+	}
+	
+	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
+		dbObject.put("[%=a.name%]", [%=a.name%] + "");
+		return this;
+	}
+	[%}%]
+	
+	[%for (a in c.eAttributes.select(a|a.isMany)) { %]
+	public List<[%=a.eType.getJavaName()%]> get[%=a.name.ftuc()%]() {
+		if ([%=a.name%] == null) {
+			[%=a.name%] = new PrimitiveList<[%=a.eType.getJavaName()%]>((BasicDBList) dbObject.get("[%=a.name%]"));
+		}
+		return [%=a.name%];
+	}
+	[%}%]
+	
+	[%for (r in c.eReferences.select(r|r.isMany)) { %]
+	public List<[%=r.eType.name%]> get[%=r.name.ftuc()%]() {
+		if ([%=r.name%] == null) {
+			[%=r.name%] = new PongoList<[%=r.eType.name%]>(this, "[%=r.name%]", [%=r.isContainment%]);
+		}
+		return [%=r.name%];
+	}
+	[%}%]
+	
+	[%for (r in c.eReferences.select(r|not r.isContainment and not r.isMany)) { %]
+	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
+		if ([%=r.name%] != null) {
+			createReference("[%=r.name%]", [%=r.name%]);
+			this.[%=r.name%] = [%=r.name%];
+		}
+		return this;
+	}
+	
+	public [%=r.eType.name%] get[%=r.name.ftuc()%]() {
+		if ([%=r.name%] == null) {
+			[%=r.name%] = ([%=r.eType.name%]) resolveReference("[%=r.name%]");
+		}
+		return [%=r.name%];
+	}
+	[%}%]
+	
+}

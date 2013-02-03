@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Pongo
 Bundle-SymbolicName: com.googlecode.pongo
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: com.googlecode.pongo.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.emfatic.core;resolution:=optional,
  org.eclipse.core.resources,
@@ -14,3 +13,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gymnast.runtime.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: com.googlecode.pongo
