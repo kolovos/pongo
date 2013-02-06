@@ -1,13 +1,12 @@
 package com.googlecode.pongo.tests.blog.model;
 
+import com.googlecode.pongo.runtime.PongoDB;
 import com.mongodb.DB;
 
-public class BlogDB {
-	
-	protected DB db = null;
+public class BlogDB extends PongoDB {
 	
 	public BlogDB(DB db) {
-		this.db = db;
+		super(db);
 	}
 	
 	protected PostCollection postsCollection = null;

@@ -8,34 +8,34 @@ class Blog {
 }
 
 class Post {
-   @searchable
-   attr String title;
-   attr String[*] tags;
-   val Comment[*] comments;
-   ref Author author;
-   val Stats stats;
+	@searchable
+	attr String title;
+	attr String[*] tags;
+	val Comment[*] comments;
+	ref Author author;
+	val Stats stats;
 }
 
 class FeaturedPost extends Post {
-   attr String reason;
+	attr String reason;
 }
 
 class Stats {
-   attr int pageloads;
-   attr int visitors;
+	attr int pageloads;
+	attr int visitors;
 }
 
 class Comment {
-   attr String text;
-   ref Author author;
-   val Comment[*] replies;
-   ref Member[*] liked;
-   ref Member[*] disliked;
+	attr String text;
+	ref Author author;
+	val Comment[*] replies;
+	ref Member[*] liked;
+	ref Member[*] disliked;
 }
 
 class Person {
-   @searchable
-   attr String name;
+	@searchable
+	attr String name;
 }
 
 class Author extends Person {
@@ -43,5 +43,5 @@ class Author extends Person {
 }
 
 class Member extends Person {
-   
+	
 }
