@@ -22,11 +22,11 @@ public class SingleValuedContainmentReferencesTests extends BlogTests {
 		stats.setVisitors(visitors);
 		post.setStats(stats);
 		
-		post.save(postCollection);
+		post.save(postsCollection);
 		
 		PongoFactory.getInstance().clear();
 		
-		stats = postCollection.getPosts().iterator().next().getStats();
+		stats = postsCollection.getPosts().iterator().next().getStats();
 		assertEquals(pageloads, stats.getPageloads());
 		assertEquals(visitors, stats.getVisitors());
 	}
@@ -35,7 +35,7 @@ public class SingleValuedContainmentReferencesTests extends BlogTests {
 	public void testUnsetNonContainmentFeature() {
 		Post post = new Post();
 		Author author = new Author();
-		author.save(authorCollection);
+		author.save(authorsCollection);
 		post.setAuthor(author);
 		post.setAuthor(null);
 		

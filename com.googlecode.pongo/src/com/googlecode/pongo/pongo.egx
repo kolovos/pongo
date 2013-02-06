@@ -15,16 +15,31 @@ pre {
 rule EClass2Class 
 	transform c : EClass {
 	
+	guard : not c.isAnnotatedAs("db")
+	
 	template : "eclass2class.egl"
 	
 	target : c.name + ".java"
 	
 }
 
+rule EClass2DBClass
+	transform c : EClass {
+	
+	guard : c.isAnnotatedAs("db")
+	
+	template : "eclass2dbclass.egl"
+	
+	target : c.name + "DB.java"
+	
+}
+
 rule EClass2CollectionClass 
 	transform c : EClass {
 	
-	guard : c.isAnnotatedAs("collection")
+	guard : c.isAnnotatedAs("collection") or 
+		EClass.all.select(e|e.isAnnotatedAs("db")).
+			exists(e|e.eAllStructuralFeatures.exists(sf|sf.eType = c))
 	
 	template : "eclass2collectionclass.egl"
 	

@@ -22,7 +22,7 @@ public class NonContainmentReferencesTests extends BlogTests {
 	public void testReferenceable() {
 		Post post = new Post();
 		Author author = new Author();
-		author.save(authorCollection);
+		author.save(authorsCollection);
 		
 		post.setAuthor(author);
 		assertEquals(post.getAuthor(), author);
@@ -45,9 +45,9 @@ public class NonContainmentReferencesTests extends BlogTests {
 		post.getComments().add(comment);
 		
 		Member member = new Member();
-		member.save(memberCollection);
+		member.save(membersCollection);
 		comment.getLiked().add(member);
-		post.save(postCollection);
+		post.save(postsCollection);
 		
 		assertEquals(1, comment.getLiked().size());
 		

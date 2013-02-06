@@ -1,6 +1,12 @@
 package com.googlecode.pongo.tests.blog.model;
 
-@collection
+@db
+class Blog {
+	val Post[*] posts;
+	val Member[*] members;
+	val Author[*] authors;
+}
+
 class Post {
    @searchable
    attr String title;
@@ -32,17 +38,10 @@ class Person {
    attr String name;
 }
 
-@collection
 class Author extends Person {
 
 }
 
-@collection
 class Member extends Person {
    
 }
-
-/*
-@stub(c="com.foo.Foo")
-class Foo {}
-*/

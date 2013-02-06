@@ -15,11 +15,11 @@ public class MultiValuedAttributesTests extends BlogTests {
 		post.getTags().add("tag1");
 		post.getTags().add("tag2");
 		post.getTags().add("tag2");
-		post.save(postCollection);
+		post.save(postsCollection);
 		
 		PongoFactory.getInstance().clear();
 		
-		assertEquals(2, postCollection.getPosts().iterator().next().getTags().size());
+		assertEquals(2, postsCollection.getPosts().iterator().next().getTags().size());
 	}
 	
 	@Test
@@ -27,7 +27,7 @@ public class MultiValuedAttributesTests extends BlogTests {
 		
 		Post post = new Post();
 		post.getTags().add(null);
-		post.save(postCollection);
+		post.save(postsCollection);
 		
 		assertEquals(0, post.getTags().size());
 		
@@ -39,17 +39,17 @@ public class MultiValuedAttributesTests extends BlogTests {
 		Post post = new Post();
 		post.getTags().add("tag1");
 		post.getTags().add("tag2");
-		post.save(postCollection);
+		post.save(postsCollection);
 		
 		PongoFactory.getInstance().clear();
 		
-		post = postCollection.getPosts().iterator().next();
+		post = postsCollection.getPosts().iterator().next();
 		post.getTags().remove("tag2");
 		post.save();
 		
 		PongoFactory.getInstance().clear();
 		
-		post = postCollection.getPosts().iterator().next();
+		post = postsCollection.getPosts().iterator().next();
 		assertEquals(1, post.getTags().size());
 		
 	}

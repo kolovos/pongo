@@ -1,0 +1,28 @@
+[%import "javautil.eol";%]
+package [%=c.ePackage.name%];
+
+import com.mongodb.DB;
+
+public class [%=c.name%]DB {
+	
+	protected DB db = null;
+	
+	public [%=c.name%]DB(DB db) {
+		this.db = db;
+	}
+	
+	[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
+	protected [%=ref.eType.name%]Collection [%=ref.name%]Collection = null;
+	[%}%]
+	
+	[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
+	public [%=ref.eType.name%]Collection get[%=ref.name.ftuc()%]Collection() {
+		if ([%=ref.name%]Collection == null) {
+			[%=ref.name%]Collection = new [%=ref.eType.name%]Collection(db.getCollection("[%=ref.name%]"));
+		}
+		return [%=ref.name%]Collection;
+	}
+	
+	[%}%]
+	
+}

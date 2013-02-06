@@ -21,7 +21,7 @@ public class ScalabilityTests extends BlogTests {
 		for (int i=0;i<100000;i++) {
 			Post post = new Post();
 			post.setTitle("Post " + i);
-			post.save(postCollection);
+			post.save(postsCollection);
 		}
 	}
 	
