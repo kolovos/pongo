@@ -3,7 +3,7 @@ import "ecoreutil.eol";
 
 pre {
 
-	var keywords = List{"abstract", "volatile", "transient", "interface", "container"};
+	var keywords = List{"abstract", "volatile", "transient", "interface", "container", "private"};
 	
 	for (e in EStructuralFeature.all) {
 		if (keywords.includes(e.name)) {
@@ -44,5 +44,14 @@ rule EClass2CollectionClass
 	template : "eclass2collectionclass.egl"
 	
 	target : c.name + "Collection.java"
+	
+}
+
+rule EEnum2Enumeration 
+	transform e : EEnum {
+	
+	template : "eenum2enumeration.egl"
+	
+	target : e.name + ".java"
 	
 }

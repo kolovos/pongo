@@ -14,6 +14,8 @@ operation EClassifier getJavaName() {
 		case "EInt": return "int";
 		case "EBoolean": return "boolean";
 		case "EFloat": return "float";
+		case "EIntegerObject": return "int";
+		case "EBooleanObject": return "boolean";
 		default: return self.name;
 	}
 }
@@ -25,6 +27,8 @@ operation EClassifier getParseMethod() {
 		case "EBoolean": return "parseBoolean";
 		case "EString": return "parseString";
 		case "EFloat": return "parseFloat";
+		case "EIntegerObject": return "parseInteger";
+		case "EBooleanObject": return "parseBoolean";
 		default: return "";
 	}
 }
@@ -35,6 +39,13 @@ operation EAttribute getDefaultJavaValue() {
 	}
 	else if (self.eType.name == "EFloat") {
 		return self.defaultValue + "f";
+	}
+	else if (self.defaultValue.isUndefined()) {
+		if (self.eType.getJavaName() == "boolean") return false;
+		else if (self.eType.getJavaName() == "int") return 0;
+	}
+	else if (self.eType.isTypeOf(EEnum)) {
+		return self.eType.name + "." + self.defaultValue;
 	}
 	else {
 		return self.defaultValue;
