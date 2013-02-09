@@ -102,6 +102,10 @@ public class Pongo {
 		}
 	}
 	
+	public void preSave() {}
+	
+	public void preDelete() {}
+	
 	protected String parseString(String str, String def) {
 		if (str == null) return def;
 		else return str;

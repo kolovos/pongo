@@ -53,11 +53,13 @@ public abstract class PongoCollection<T> implements Iterable<T> {
 	
 	public void sync() {
 		for (Pongo pongo : toSave) {
+			pongo.preSave();
 			dbCollection.save(pongo.getDbObject());
 		}
 		toSave.clear();
 		
 		for (Pongo pongo : toDelete) {
+			pongo.preDelete();
 			dbCollection.remove(new BasicDBObject("_id", pongo.getId()));
 		}
 		toDelete.clear();
