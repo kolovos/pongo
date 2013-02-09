@@ -1,4 +1,5 @@
 [%import "javautil.eol";%]
+[%import "ecoreutil.eol";%]
 package [%=c.ePackage.name%];
 
 import com.mongodb.DBObject;
@@ -11,6 +12,12 @@ import com.googlecode.pongo.runtime.PongoList;
 import com.googlecode.pongo.runtime.PrimitiveList;
 import com.googlecode.pongo.runtime.PongoFactory;
 
+[%if (c.isAnnotatedAs("customize")){%]
+[% out.setContentType("Java"); %]
+// protected region custom-imports on begin
+// protected region custom-imports end
+[%}%]
+
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
@@ -18,6 +25,12 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	[%}%]
 	[%for (r in c.eReferences.select(r|not r.isMany)) { %]
 	protected [%=r.eType.name%] [%=r.name%] = null;
+	[%}%]
+	
+	[%if (c.isAnnotatedAs("customize")){%]
+	[% out.setContentType("Java"); %]
+	// protected region custom-fields-and-methods on begin
+	// protected region custom-fields-and-methods end
 	[%}%]
 	
 	public [%=c.name%]() { 

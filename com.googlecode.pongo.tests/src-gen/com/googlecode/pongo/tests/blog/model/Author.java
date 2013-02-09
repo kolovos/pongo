@@ -10,7 +10,9 @@ import com.googlecode.pongo.runtime.PongoList;
 import com.googlecode.pongo.runtime.PrimitiveList;
 import com.googlecode.pongo.runtime.PongoFactory;
 
+
 public class Author extends Person {
+	
 	
 	
 	public Author() { 

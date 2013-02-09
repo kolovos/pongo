@@ -7,6 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="authors" upperBound="-1" eType="//Author" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Post">
+    <eAnnotations source="customize"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title">
       <eAnnotations source="searchable"/>
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>

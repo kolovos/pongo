@@ -10,12 +10,26 @@ import com.googlecode.pongo.runtime.PongoList;
 import com.googlecode.pongo.runtime.PrimitiveList;
 import com.googlecode.pongo.runtime.PongoFactory;
 
+// protected region custom-imports on begin
+// protected region custom-imports end
+
 public class Post extends Pongo {
 	
 	protected List<String> tags = null;
 	protected List<Comment> comments = null;
 	protected Author author = null;
 	protected Stats stats = null;
+	
+	// protected region custom-fields-and-methods on begin
+	public static void main(String[] args) {
+		System.err.println(new Post().getCommentsCount());
+	}
+	
+	public int getCommentsCount() {
+		return getComments().size();
+	}
+	
+	// protected region custom-fields-and-methods end
 	
 	public Post() { 
 		super();

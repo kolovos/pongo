@@ -10,12 +10,14 @@ import com.googlecode.pongo.runtime.PongoList;
 import com.googlecode.pongo.runtime.PrimitiveList;
 import com.googlecode.pongo.runtime.PongoFactory;
 
+
 public class Comment extends Pongo {
 	
 	protected List<Comment> replies = null;
 	protected List<Member> liked = null;
 	protected List<Member> disliked = null;
 	protected Author author = null;
+	
 	
 	public Comment() { 
 		super();
