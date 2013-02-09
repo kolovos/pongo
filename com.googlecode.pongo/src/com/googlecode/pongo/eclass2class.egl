@@ -41,6 +41,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
 		dbObject.put("[%=a.name%]", [%=a.name%] + "");
+		notifyChanged();
 		return this;
 	}
 	[%}%]
@@ -48,7 +49,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	[%for (a in c.eAttributes.select(a|a.isMany)) { %]
 	public List<[%=a.eType.getJavaName()%]> get[%=a.name.ftuc()%]() {
 		if ([%=a.name%] == null) {
-			[%=a.name%] = new PrimitiveList<[%=a.eType.getJavaName()%]>((BasicDBList) dbObject.get("[%=a.name%]"));
+			[%=a.name%] = new PrimitiveList<[%=a.eType.getJavaName()%]>(this, (BasicDBList) dbObject.get("[%=a.name%]"));
 		}
 		return [%=a.name%];
 	}
@@ -68,6 +69,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		if ([%=r.name%] != null) {
 			createReference("[%=r.name%]", [%=r.name%]);
 			this.[%=r.name%] = [%=r.name%];
+			notifyChanged();
 		}
 		return this;
 	}
@@ -92,6 +94,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		if ([%=r.name%] != null) {
 			dbObject.put("[%=r.name%]", [%=r.name%].getDbObject());
 			this.[%=r.name%] = [%=r.name%];
+			notifyChanged();
 		}
 		return this;
 	}

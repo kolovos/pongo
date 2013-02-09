@@ -16,8 +16,7 @@ public class CompositeTests extends BlogTests {
 	
 	Author author = new Author();
 	author.setName("Joe Doe");
-	author.save(authorsCollection);
-	
+	authors.add(author);
 	post.setAuthor(author);
 	
 	Comment comment = new Comment();
@@ -28,8 +27,9 @@ public class CompositeTests extends BlogTests {
 	reply.setText("A reply");
 	comment.getReplies().add(reply);
 	
-	post.save(postsCollection);
-		
+	posts.add(post);
+	blog.sync();
+	
 	}
 	
 }

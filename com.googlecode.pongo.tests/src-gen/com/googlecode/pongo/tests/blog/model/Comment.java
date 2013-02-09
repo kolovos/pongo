@@ -35,6 +35,7 @@ public class Comment extends Pongo {
 	
 	public Comment setText(String text) {
 		dbObject.put("text", text + "");
+		notifyChanged();
 		return this;
 	}
 	
@@ -62,6 +63,7 @@ public class Comment extends Pongo {
 		if (author != null) {
 			createReference("author", author);
 			this.author = author;
+			notifyChanged();
 		}
 		return this;
 	}

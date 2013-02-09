@@ -13,20 +13,20 @@ import com.mongodb.Mongo;
 
 public class BlogTests {
 
-	protected DB db = null;
-	PostCollection postsCollection = null;
-	AuthorCollection authorsCollection = null;
-	MemberCollection membersCollection = null;
+	PostCollection posts = null;
+	AuthorCollection authors = null;
+	MemberCollection members = null;
+	BlogDB blog = null;
 	
 	@Before
 	public void setup() throws Exception {
 		Mongo mongo = new Mongo();
 		mongo.dropDatabase("blog");
-		BlogDB blogDB = new BlogDB(mongo.getDB("blog"));
+		blog = new BlogDB(mongo.getDB("blog"));
 
-		postsCollection = blogDB.getPostsCollection();
-		authorsCollection = blogDB.getAuthorsCollection();
-		membersCollection = blogDB.getMembersCollection();
+		posts = blog.getPosts();
+		authors = blog.getAuthors();
+		members = blog.getMembers();
 		
 	}
 		

@@ -34,12 +34,13 @@ public class Post extends Pongo {
 	
 	public Post setTitle(String title) {
 		dbObject.put("title", title + "");
+		notifyChanged();
 		return this;
 	}
 	
 	public List<String> getTags() {
 		if (tags == null) {
-			tags = new PrimitiveList<String>((BasicDBList) dbObject.get("tags"));
+			tags = new PrimitiveList<String>(this, (BasicDBList) dbObject.get("tags"));
 		}
 		return tags;
 	}
@@ -55,6 +56,7 @@ public class Post extends Pongo {
 		if (author != null) {
 			createReference("author", author);
 			this.author = author;
+			notifyChanged();
 		}
 		return this;
 	}
@@ -77,6 +79,7 @@ public class Post extends Pongo {
 		if (stats != null) {
 			dbObject.put("stats", stats.getDbObject());
 			this.stats = stats;
+			notifyChanged();
 		}
 		return this;
 	}

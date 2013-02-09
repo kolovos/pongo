@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import com.googlecode.pongo.runtime.PongoFactory;
 import com.googlecode.pongo.tests.blog.model.Author;
-import com.googlecode.pongo.tests.blog.model.Comment;
 import com.googlecode.pongo.tests.blog.model.Post;
 import com.googlecode.pongo.tests.blog.model.Stats;
 
@@ -21,12 +20,13 @@ public class SingleValuedContainmentReferencesTests extends BlogTests {
 		stats.setPageloads(pageloads);
 		stats.setVisitors(visitors);
 		post.setStats(stats);
+		blog.getPosts().add(post);
 		
-		post.save(postsCollection);
+		blog.sync();
 		
 		PongoFactory.getInstance().clear();
 		
-		stats = postsCollection.getPosts().iterator().next().getStats();
+		stats = blog.getPosts().iterator().next().getStats();
 		assertEquals(pageloads, stats.getPageloads());
 		assertEquals(visitors, stats.getVisitors());
 	}
@@ -35,7 +35,8 @@ public class SingleValuedContainmentReferencesTests extends BlogTests {
 	public void testUnsetNonContainmentFeature() {
 		Post post = new Post();
 		Author author = new Author();
-		author.save(authorsCollection);
+		blog.getAuthors().add(author);
+		
 		post.setAuthor(author);
 		post.setAuthor(null);
 		

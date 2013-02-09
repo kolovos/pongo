@@ -27,6 +27,7 @@ public class FeaturedPost extends Post {
 	
 	public FeaturedPost setReason(String reason) {
 		dbObject.put("reason", reason + "");
+		notifyChanged();
 		return this;
 	}
 	

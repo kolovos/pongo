@@ -7,31 +7,28 @@ public class BlogDB extends PongoDB {
 	
 	public BlogDB(DB db) {
 		super(db);
+		posts = new PostCollection(db.getCollection("posts"));
+		pongoCollections.add(posts);
+		members = new MemberCollection(db.getCollection("members"));
+		pongoCollections.add(members);
+		authors = new AuthorCollection(db.getCollection("authors"));
+		pongoCollections.add(authors);
 	}
 	
-	protected PostCollection postsCollection = null;
-	protected MemberCollection membersCollection = null;
-	protected AuthorCollection authorsCollection = null;
+	protected PostCollection posts = null;
+	protected MemberCollection members = null;
+	protected AuthorCollection authors = null;
 	
-	public PostCollection getPostsCollection() {
-		if (postsCollection == null) {
-			postsCollection = new PostCollection(db.getCollection("posts"));
-		}
-		return postsCollection;
+	public PostCollection getPosts() {
+		return posts;
 	}
 	
-	public MemberCollection getMembersCollection() {
-		if (membersCollection == null) {
-			membersCollection = new MemberCollection(db.getCollection("members"));
-		}
-		return membersCollection;
+	public MemberCollection getMembers() {
+		return members;
 	}
 	
-	public AuthorCollection getAuthorsCollection() {
-		if (authorsCollection == null) {
-			authorsCollection = new AuthorCollection(db.getCollection("authors"));
-		}
-		return authorsCollection;
+	public AuthorCollection getAuthors() {
+		return authors;
 	}
 	
 	

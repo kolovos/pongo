@@ -5,9 +5,12 @@ import java.util.Iterator;
 import com.mongodb.BasicDBList;
 
 public class PrimitiveList<T> extends BasicDBListWrapper<T>{
-
-	public PrimitiveList(BasicDBList dbList) {
+	
+	protected Pongo container = null;
+	
+	public PrimitiveList(Pongo container, BasicDBList dbList) {
 		super(dbList);
+		this.container = container;
 	}
 
 	@Override
@@ -25,4 +28,16 @@ public class PrimitiveList<T> extends BasicDBListWrapper<T>{
 		return o;
 	}
 
+	@Override
+	protected void added(T t) {
+		super.added(t);
+		container.notifyChanged();
+	}
+	
+	@Override
+	protected void removed(Object o) {
+		super.removed(o);
+		container.notifyChanged();
+	}
+	
 }

@@ -24,6 +24,7 @@ public class PongoList<T extends Pongo> extends BasicDBListWrapper<T> {
 	}
 	
 	protected void added(T t) {
+		container.notifyChanged();
 		if (containment) {
 			t.setContainer(container);
 			t.setContainingFeature(containingFeature);
@@ -32,6 +33,7 @@ public class PongoList<T extends Pongo> extends BasicDBListWrapper<T> {
 	
 	@Override
 	protected void removed(Object o) {
+		container.notifyChanged();
 		if (containment) {
 			((Pongo) o).setContainer(null);
 		}

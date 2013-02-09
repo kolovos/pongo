@@ -85,22 +85,21 @@ public class Pongo {
 		return new DBRef(getPongoCollection().getDbCollection().getDB(), getPongoCollection().getName(), getId());
 	}
 	
-	public void save() {
-		save(this.getPongoCollection());
-	}
-	
-	public void save(PongoCollection pongoCollection) {
-		if (pongoCollection == null) throw new IllegalStateException("Object not associated with a collection");
-		this.setPongoCollection(pongoCollection);
-		pongoCollection.dbCollection.save(dbObject);
-	}
-	
 	protected Pongo resolveReference(String name) {
 		return PongoFactory.getInstance().resolveReference(dbObject.get(name));
 	}
 	
 	public boolean isReferencable() {
 		return (this.getContainer() == null && this.getPongoCollection() != null);
+	}
+	
+	protected void notifyChanged() {
+		if (container != null) {
+			container.notifyChanged();
+		}
+		else if (getPongoCollection() != null) {
+			getPongoCollection().add(this);
+		}
 	}
 	
 	protected String parseString(String str, String def) {

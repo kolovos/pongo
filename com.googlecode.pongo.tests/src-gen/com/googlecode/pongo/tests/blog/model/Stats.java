@@ -27,6 +27,7 @@ public class Stats extends Pongo {
 	
 	public Stats setPageloads(int pageloads) {
 		dbObject.put("pageloads", pageloads + "");
+		notifyChanged();
 		return this;
 	}
 	public int getVisitors() {
@@ -35,6 +36,7 @@ public class Stats extends Pongo {
 	
 	public Stats setVisitors(int visitors) {
 		dbObject.put("visitors", visitors + "");
+		notifyChanged();
 		return this;
 	}
 	

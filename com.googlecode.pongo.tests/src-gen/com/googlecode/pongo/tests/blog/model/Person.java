@@ -27,6 +27,7 @@ public class Person extends Pongo {
 	
 	public Person setName(String name) {
 		dbObject.put("name", name + "");
+		notifyChanged();
 		return this;
 	}
 	
