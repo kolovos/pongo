@@ -12,6 +12,15 @@ import com.googlecode.pongo.tests.blog.model.Stats;
 public class SingleValuedContainmentReferencesTests extends BlogTests {
 
 	@Test
+	public void testUnsetStats() {
+		Post post = new Post();
+		post.setStats(new Stats());
+		post.setStats(null);
+		
+		assertEquals(null, post.getStats());
+	}
+	
+	@Test
 	public void testPersistedAndLoadedOK() {
 		Post post = new Post();
 		Stats stats = new Stats();

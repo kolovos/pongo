@@ -96,8 +96,13 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	}
 	
 	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
-		if ([%=r.name%] != null) {
-			dbObject.put("[%=r.name%]", [%=r.name%].getDbObject());
+		if (this.[%=r.name%] != [%=r.name%]) {
+			if ([%=r.name%] == null) {
+				dbObject.removeField("[%=r.name%]");
+			}
+			else {
+				dbObject.put("[%=r.name%]", [%=r.name%].getDbObject());
+			}
 			this.[%=r.name%] = [%=r.name%];
 			notifyChanged();
 		}

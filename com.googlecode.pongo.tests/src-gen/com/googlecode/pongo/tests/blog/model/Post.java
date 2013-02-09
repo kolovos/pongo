@@ -81,8 +81,13 @@ public class Post extends Pongo {
 	}
 	
 	public Post setStats(Stats stats) {
-		if (stats != null) {
-			dbObject.put("stats", stats.getDbObject());
+		if (this.stats != stats) {
+			if (stats == null) {
+				dbObject.removeField("stats");
+			}
+			else {
+				dbObject.put("stats", stats.getDbObject());
+			}
 			this.stats = stats;
 			notifyChanged();
 		}

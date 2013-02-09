@@ -54,23 +54,7 @@ public class NonContainmentReferencesTests extends BlogTests {
 		assertEquals(1, comment.getLiked().size());
 		
 	}
-	
-	@Test
-	public void testMoveCommentWithoutSync() {
 		
-		Post post1 = new Post();
-		Post post2 = new Post();
-		
-		Comment comment = new Comment();
-		
-		post1.getComments().add(comment);
-		post2.getComments().add(comment);
-		
-		assertEquals(0, post1.getComments().size());
-		assertEquals(1, post2.getComments().size());
-		
-	}
-	
 	@Test
 	public void testUnsetNonContainmentFeature() {
 		Post post = new Post();
