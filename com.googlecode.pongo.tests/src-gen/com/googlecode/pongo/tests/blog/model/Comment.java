@@ -60,8 +60,13 @@ public class Comment extends Pongo {
 	}
 	
 	public Comment setAuthor(Author author) {
-		if (author != null) {
-			createReference("author", author);
+		if (this.author != author) {
+			if (author == null) {
+				dbObject.put("author", new BasicDBObject());
+			}
+			else {
+				createReference("author", author);
+			}
 			this.author = author;
 			notifyChanged();
 		}

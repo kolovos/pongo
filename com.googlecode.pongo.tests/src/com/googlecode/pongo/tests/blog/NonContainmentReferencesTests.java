@@ -74,11 +74,12 @@ public class NonContainmentReferencesTests extends BlogTests {
 	@Test
 	public void testUnsetNonContainmentFeature() {
 		Post post = new Post();
-		post.setStats(new Stats());
-		post.setStats(null);
-		assertEquals(null, post.getStats());
+		Author author = new Author();
+		blog.getAuthors().add(author);
+		post.setAuthor(author);
+		post.setAuthor(null);
+		assertEquals(null, post.getAuthor());
 	}
-	
 	
 	@Test
 	public void testSyncAuthorChange() {

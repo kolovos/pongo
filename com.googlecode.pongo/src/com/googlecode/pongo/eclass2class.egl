@@ -66,8 +66,13 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	[%for (r in c.eReferences.select(r|not r.isContainment and not r.isMany)) { %]
 	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
-		if ([%=r.name%] != null) {
-			createReference("[%=r.name%]", [%=r.name%]);
+		if (this.[%=r.name%] != [%=r.name%]) {
+			if ([%=r.name%] == null) {
+				dbObject.put("[%=r.name%]", new BasicDBObject());
+			}
+			else {
+				createReference("[%=r.name%]", [%=r.name%]);
+			}
 			this.[%=r.name%] = [%=r.name%];
 			notifyChanged();
 		}
