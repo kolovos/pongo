@@ -15,7 +15,7 @@ pre {
 rule EClass2Class 
 	transform c : EClass {
 	
-	guard : not c.isAnnotatedAs("db")
+	guard : not c.isAnnotatedAs("db") and not c.isAnnotatedAs("stub")
 	
 	template : "eclass2class.egl"
 	

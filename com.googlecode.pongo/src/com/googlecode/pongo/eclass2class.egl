@@ -24,7 +24,7 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	protected List<[%=sf.eType.getJavaName()%]> [%=sf.name%] = null;
 	[%}%]
 	[%for (r in c.eReferences.select(r|not r.isMany)) { %]
-	protected [%=r.eType.name%] [%=r.name%] = null;
+	protected [%=r.eType.getJavaName()%] [%=r.name%] = null;
 	[%}%]
 	
 	[%if (c.isAnnotatedAs("customize")){%]
@@ -41,10 +41,6 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
 		dbObject.put("[%=sf.name%]", new BasicDBList());
 		[%}%]
-	}
-	
-	public [%=c.name%](DBObject dbObject) {
-		super(dbObject);
 	}
 	
 	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
@@ -69,16 +65,16 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	[%}%]
 	
 	[%for (r in c.eReferences.select(r|r.isMany)) { %]
-	public List<[%=r.eType.name%]> get[%=r.name.ftuc()%]() {
+	public List<[%=r.eType.getJavaName()%]> get[%=r.name.ftuc()%]() {
 		if ([%=r.name%] == null) {
-			[%=r.name%] = new PongoList<[%=r.eType.name%]>(this, "[%=r.name%]", [%=r.isContainment%]);
+			[%=r.name%] = new PongoList<[%=r.eType.getJavaName()%]>(this, "[%=r.name%]", [%=r.isContainment%]);
 		}
 		return [%=r.name%];
 	}
 	[%}%]
 	
 	[%for (r in c.eReferences.select(r|not r.isContainment and not r.isMany)) { %]
-	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
+	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.getJavaName()%] [%=r.name%]) {
 		if (this.[%=r.name%] != [%=r.name%]) {
 			if ([%=r.name%] == null) {
 				dbObject.put("[%=r.name%]", new BasicDBObject());
@@ -92,23 +88,23 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 		return this;
 	}
 	
-	public [%=r.eType.name%] get[%=r.name.ftuc()%]() {
+	public [%=r.eType.getJavaName()%] get[%=r.name.ftuc()%]() {
 		if ([%=r.name%] == null) {
-			[%=r.name%] = ([%=r.eType.name%]) resolveReference("[%=r.name%]");
+			[%=r.name%] = ([%=r.eType.getJavaName()%]) resolveReference("[%=r.name%]");
 		}
 		return [%=r.name%];
 	}
 	[%}%]
 	
 	[%for (r in c.eReferences.select(r|r.isContainment and not r.isMany)) { %]
-	public [%=r.eType.name%] get[%=r.name.ftuc()%]() {
+	public [%=r.eType.getJavaName()%] get[%=r.name.ftuc()%]() {
 		if ([%=r.name%] == null && dbObject.containsField("[%=r.name%]")) {
-			[%=r.name%] = ([%=r.eType.name%]) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("[%=r.name%]"));
+			[%=r.name%] = ([%=r.eType.getJavaName()%]) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("[%=r.name%]"));
 		}
 		return [%=r.name%];
 	}
 	
-	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.name%] [%=r.name%]) {
+	public [%=c.name%] set[%=r.name.ftuc()%]([%=r.eType.getJavaName()%] [%=r.name%]) {
 		if (this.[%=r.name%] != [%=r.name%]) {
 			if ([%=r.name%] == null) {
 				dbObject.removeField("[%=r.name%]");

@@ -34,10 +34,6 @@ public class Post extends Pongo {
 		dbObject.put("comments", new BasicDBList());
 	}
 	
-	public Post(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	public String getTitle() {
 		return parseString(dbObject.get("title")+"", "");
 	}

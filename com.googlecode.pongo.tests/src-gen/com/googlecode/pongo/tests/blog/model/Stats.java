@@ -19,10 +19,6 @@ public class Stats extends Pongo {
 		super();
 	}
 	
-	public Stats(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	public int getPageloads() {
 		return parseInteger(dbObject.get("pageloads")+"", 0);
 	}

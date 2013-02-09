@@ -19,10 +19,6 @@ public class Author extends Person {
 		super();
 	}
 	
-	public Author(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	
 	
 	

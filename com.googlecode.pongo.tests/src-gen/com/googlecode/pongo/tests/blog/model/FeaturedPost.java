@@ -19,10 +19,6 @@ public class FeaturedPost extends Post {
 		super();
 	}
 	
-	public FeaturedPost(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	public String getReason() {
 		return parseString(dbObject.get("reason")+"", "");
 	}

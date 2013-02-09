@@ -27,10 +27,6 @@ public class Comment extends Pongo {
 		dbObject.put("disliked", new BasicDBList());
 	}
 	
-	public Comment(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	public String getText() {
 		return parseString(dbObject.get("text")+"", "");
 	}

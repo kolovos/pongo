@@ -19,10 +19,6 @@ public class Person extends Pongo {
 		super();
 	}
 	
-	public Person(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	public String getName() {
 		return parseString(dbObject.get("name")+"", "");
 	}

@@ -19,10 +19,6 @@ public class Member extends Person {
 		super();
 	}
 	
-	public Member(DBObject dbObject) {
-		super(dbObject);
-	}
-	
 	
 	
 	
