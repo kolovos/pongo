@@ -21,14 +21,10 @@ public class Post extends Pongo {
 	protected Stats stats = null;
 	
 	// protected region custom-fields-and-methods on begin
-	public static void main(String[] args) {
-		System.err.println(new Post().getCommentsCount());
+	@Override
+	public void preSave() {
+		System.err.println("About to save " + getTitle());
 	}
-	
-	public int getCommentsCount() {
-		return getComments().size();
-	}
-	
 	// protected region custom-fields-and-methods end
 	
 	public Post() { 
