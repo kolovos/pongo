@@ -10,6 +10,7 @@ public class Comment extends Pongo {
 	protected List<Comment> replies = null;
 	protected List<Member> liked = null;
 	protected List<Member> disliked = null;
+	protected List<Flag> flags = null;
 	protected Author author = null;
 	
 	
@@ -19,6 +20,7 @@ public class Comment extends Pongo {
 		dbObject.put("replies", new BasicDBList());
 		dbObject.put("liked", new BasicDBList());
 		dbObject.put("disliked", new BasicDBList());
+		dbObject.put("flags", new BasicDBList());
 	}
 	
 	public String getText() {
@@ -31,6 +33,12 @@ public class Comment extends Pongo {
 		return this;
 	}
 	
+	public List<Flag> getFlags() {
+		if (flags == null) {
+			flags = new PrimitiveList<Flag>(this, (BasicDBList) dbObject.get("flags"));
+		}
+		return flags;
+	}
 	
 	public List<Comment> getReplies() {
 		if (replies == null) {

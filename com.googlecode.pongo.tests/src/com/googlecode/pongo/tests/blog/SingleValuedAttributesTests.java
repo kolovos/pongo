@@ -20,8 +20,6 @@ public class SingleValuedAttributesTests extends BlogTests {
 		post.setTitle("After");
 		blog.sync();
 		
-		PongoFactory.getInstance().clear();
-		
 		assertEquals("After", posts.first().getTitle());
 	}
 	
@@ -39,7 +37,6 @@ public class SingleValuedAttributesTests extends BlogTests {
 		comment.setText("After");
 		blog.sync();
 		
-		PongoFactory.getInstance().clear();
 		assertEquals("After", posts.first().getComments().get(0).getText());
 	}
 	

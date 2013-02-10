@@ -21,13 +21,18 @@ public class BlogTests {
 	AuthorCollection authors = null;
 	MemberCollection members = null;
 	Blog blog = null;
+	Mongo mongo = null;
 	
 	@Before
 	public void setup() throws Exception {
-		Mongo mongo = new Mongo();
+		if (mongo == null) {
+			mongo = new Mongo();
+		}
+		
 		mongo.dropDatabase("blog");
 		blog = new Blog(mongo.getDB("blog"));
-
+		blog.setClearPongoCacheOnSync(true);
+		
 		posts = blog.getPosts();
 		authors = blog.getAuthors();
 		members = blog.getMembers();

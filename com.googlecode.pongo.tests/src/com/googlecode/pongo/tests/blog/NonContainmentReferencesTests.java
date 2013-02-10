@@ -84,8 +84,6 @@ public class NonContainmentReferencesTests extends BlogTests {
 		
 		blog.sync();
 		
-		PongoFactory.getInstance().clear();
-		
 		assertEquals("After", blog.getPosts().first().getAuthor().getName());
 	}
 	

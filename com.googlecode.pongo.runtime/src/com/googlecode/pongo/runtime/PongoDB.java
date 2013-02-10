@@ -9,6 +9,7 @@ public class PongoDB {
 	
 	protected DB db;
 	protected List<PongoCollection> pongoCollections = new ArrayList<PongoCollection>();
+	protected boolean clearPongoCacheOnSync = false;
 	
 	public PongoDB(DB db) {
 		this.db = db;
@@ -18,9 +19,25 @@ public class PongoDB {
 		return pongoCollections;
 	}
 	
-	public void sync() {
+	public void sync(boolean clearPongoCache) {
 		for (PongoCollection c : pongoCollections) {
 			c.sync();
 		}
+		if (clearPongoCache) {
+			PongoFactory.getInstance().clear();
+		}
 	}
+	
+	public void setClearPongoCacheOnSync(boolean clearPongoCacheOnSync) {
+		this.clearPongoCacheOnSync = clearPongoCacheOnSync;
+	}
+	
+	public boolean isClearPongoCacheOnSync() {
+		return clearPongoCacheOnSync;
+	}
+	
+	public void sync() {
+		sync(clearPongoCacheOnSync);
+	}
+	
 }

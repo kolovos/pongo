@@ -15,14 +15,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tags" upperBound="-1">
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ratings" upperBound="-1">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="comments" upperBound="-1" eType="//Comment" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="//Author"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stats" eType="//Stats" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="//PostType"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturedPost" eSuperTypes="//Post">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reason">
-      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eStructuralFeatures>
+  <eClassifiers xsi:type="ecore:EEnum" name="PostType">
+    <eLiterals name="Regular"/>
+    <eLiterals name="Sticky" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Stats">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pageloads">
@@ -40,6 +43,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="replies" upperBound="-1" eType="//Comment" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="liked" upperBound="-1" eType="//Member"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="disliked" upperBound="-1" eType="//Member"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="flags" upperBound="-1" eType="//Flag"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Flag">
+    <eLiterals name="Helpful"/>
+    <eLiterals name="Offensive" value="1"/>
+    <eLiterals name="Spam" value="2"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Person">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name">

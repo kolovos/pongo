@@ -12,13 +12,16 @@ class Post {
 	@searchable
 	attr String title;
 	attr String[*] tags;
+	attr int[*] ratings;
 	val Comment[*] comments;
 	ref Author author;
 	val Stats stats;
+	attr PostType type;
 }
 
-class FeaturedPost extends Post {
-	attr String reason;
+enum PostType {
+	Regular;
+	Sticky;
 }
 
 class Stats {
@@ -32,6 +35,13 @@ class Comment {
 	val Comment[*] replies;
 	ref Member[*] liked;
 	ref Member[*] disliked;
+	attr Flag[*] flags;
+}
+
+enum Flag {
+	Helpful;
+	Offensive;
+	Spam;
 }
 
 class Person {

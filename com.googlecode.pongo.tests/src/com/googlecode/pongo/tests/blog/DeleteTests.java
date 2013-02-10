@@ -27,8 +27,6 @@ public class DeleteTests extends BlogTests {
 		
 		blog.sync();
 		
-		PongoFactory.getInstance().clear();
-		
 		blog.getPosts().remove(post1);
 		
 		blog.sync();

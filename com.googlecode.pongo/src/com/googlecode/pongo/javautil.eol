@@ -7,6 +7,24 @@ operation EClass getJavaExtends() {
 	}
 }
 
+operation EClassifier getJavaBoxedName() {
+	if (self.isAnnotatedAs("stub")) {
+		return self.getAnnotationValue("stub", "javaClass");
+	}
+	else {
+		switch (self.name) {
+			case "EString": return "String";
+			case "ELong": return "Long";
+			case "EInt": return "Integer";
+			case "EBoolean": return "Boolean";
+			case "EFloat": return "Float";
+			case "EIntegerObject": return "Integer";
+			case "EBooleanObject": return "Boolean";
+			default: return self.name;
+		}
+	}
+}
+
 operation EClassifier getJavaName() {
 	if (self.isAnnotatedAs("stub")) {
 		return self.getAnnotationValue("stub", "javaClass");
@@ -26,15 +44,20 @@ operation EClassifier getJavaName() {
 }
 
 operation EClassifier getParseMethod() {
-	switch (self.name) {
-		case "ELong": return "parseLong";
-		case "EInt": return "parseInteger";
-		case "EBoolean": return "parseBoolean";
-		case "EString": return "parseString";
-		case "EFloat": return "parseFloat";
-		case "EIntegerObject": return "parseInteger";
-		case "EBooleanObject": return "parseBoolean";
-		default: return "";
+	if (self.isTypeOf(EEnum)) {
+		
+	}
+	else {
+		switch (self.name) {
+			case "ELong": return "parseLong";
+			case "EInt": return "parseInteger";
+			case "EBoolean": return "parseBoolean";
+			case "EString": return "parseString";
+			case "EFloat": return "parseFloat";
+			case "EIntegerObject": return "parseInteger";
+			case "EBooleanObject": return "parseBoolean";
+			default: return "";
+		}
 	}
 }
 

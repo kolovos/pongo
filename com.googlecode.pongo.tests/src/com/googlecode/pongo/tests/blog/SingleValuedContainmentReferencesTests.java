@@ -33,8 +33,6 @@ public class SingleValuedContainmentReferencesTests extends BlogTests {
 		
 		blog.sync();
 		
-		PongoFactory.getInstance().clear();
-		
 		stats = blog.getPosts().iterator().next().getStats();
 		assertEquals(pageloads, stats.getPageloads());
 		assertEquals(visitors, stats.getVisitors());

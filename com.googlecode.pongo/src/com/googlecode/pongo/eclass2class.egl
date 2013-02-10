@@ -15,7 +15,7 @@ import com.googlecode.pongo.runtime.*;
 public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
-	protected List<[%=sf.eType.getJavaName()%]> [%=sf.name%] = null;
+	protected List<[%=sf.eType.getJavaBoxedName()%]> [%=sf.name%] = null;
 	[%}%]
 	[%for (r in c.eReferences.select(r|not r.isMany)) { %]
 	protected [%=r.eType.getJavaName()%] [%=r.name%] = null;
@@ -38,9 +38,20 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	}
 	
 	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
+	[%if (a.eType.isTypeOf(EEnum)){%]
+	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
+		[%=a.eType.getJavaName()%] [%=a.name%] = null;
+		try {
+			[%=a.name%] = [%=a.eType.getJavaName()%].valueOf(dbObject.get("[%=a.name%]")+"");
+		}
+		catch (Exception ex) {}
+		return [%=a.name%];
+	}
+	[%}else{%]
 	public [%=a.eType.getJavaName()%] get[%=a.name.ftuc()%]() {
 		return [%=a.eType.getParseMethod()%](dbObject.get("[%=a.name%]")+"", [%=a.getDefaultJavaValue()%]);
 	}
+	[%}%]
 	
 	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
 		dbObject.put("[%=a.name%]", [%=a.name%] + "");
@@ -50,9 +61,9 @@ public class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	[%}%]
 	
 	[%for (a in c.eAttributes.select(a|a.isMany)) { %]
-	public List<[%=a.eType.getJavaName()%]> get[%=a.name.ftuc()%]() {
+	public List<[%=a.eType.getJavaBoxedName()%]> get[%=a.name.ftuc()%]() {
 		if ([%=a.name%] == null) {
-			[%=a.name%] = new PrimitiveList<[%=a.eType.getJavaName()%]>(this, (BasicDBList) dbObject.get("[%=a.name%]"));
+			[%=a.name%] = new PrimitiveList<[%=a.eType.getJavaBoxedName()%]>(this, (BasicDBList) dbObject.get("[%=a.name%]"));
 		}
 		return [%=a.name%];
 	}

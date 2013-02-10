@@ -50,6 +50,8 @@ rule EClass2CollectionClass
 rule EEnum2Enumeration 
 	transform e : EEnum {
 	
+	guard: not e.isAnnotatedAs("stub")
+	
 	template : "eenum2enumeration.egl"
 	
 	target : e.name + ".java"

@@ -10,6 +10,7 @@ import com.googlecode.pongo.runtime.*;
 public class Post extends Pongo {
 	
 	protected List<String> tags = null;
+	protected List<Integer> ratings = null;
 	protected List<Comment> comments = null;
 	protected Author author = null;
 	protected Stats stats = null;
@@ -25,6 +26,7 @@ public class Post extends Pongo {
 		super();
 		dbObject.put("author", new BasicDBObject());
 		dbObject.put("tags", new BasicDBList());
+		dbObject.put("ratings", new BasicDBList());
 		dbObject.put("comments", new BasicDBList());
 	}
 	
@@ -37,12 +39,32 @@ public class Post extends Pongo {
 		notifyChanged();
 		return this;
 	}
+	public PostType getType() {
+		PostType type = null;
+		try {
+			type = PostType.valueOf(dbObject.get("type")+"");
+		}
+		catch (Exception ex) {}
+		return type;
+	}
+	
+	public Post setType(PostType type) {
+		dbObject.put("type", type + "");
+		notifyChanged();
+		return this;
+	}
 	
 	public List<String> getTags() {
 		if (tags == null) {
 			tags = new PrimitiveList<String>(this, (BasicDBList) dbObject.get("tags"));
 		}
 		return tags;
+	}
+	public List<Integer> getRatings() {
+		if (ratings == null) {
+			ratings = new PrimitiveList<Integer>(this, (BasicDBList) dbObject.get("ratings"));
+		}
+		return ratings;
 	}
 	
 	public List<Comment> getComments() {
