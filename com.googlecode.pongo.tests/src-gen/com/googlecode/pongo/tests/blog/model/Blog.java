@@ -3,9 +3,9 @@ package com.googlecode.pongo.tests.blog.model;
 import com.googlecode.pongo.runtime.PongoDB;
 import com.mongodb.DB;
 
-public class BlogDB extends PongoDB {
+public class Blog extends PongoDB {
 	
-	public BlogDB(DB db) {
+	public Blog(DB db) {
 		super(db);
 		posts = new PostCollection(db.getCollection("posts"));
 		pongoCollections.add(posts);
