@@ -4,14 +4,9 @@ import "ecoreutil.eol";
 %]
 package [%=c.ePackage.name%];
 
-import com.googlecode.pongo.runtime.PongoCollection;
-import com.googlecode.pongo.runtime.PongoCursorIterator;
-import com.googlecode.pongo.runtime.IteratorIterable;
-
-import java.util.Iterator;
-
-import com.mongodb.DBCollection;
-import com.mongodb.BasicDBObject;
+import com.googlecode.pongo.runtime.*;
+import java.util.*;
+import com.mongodb.*;
 
 public class [%=c.name%]Collection extends PongoCollection<[%=c.getJavaName()%]> {
 	
@@ -27,8 +22,16 @@ public class [%=c.name%]Collection extends PongoCollection<[%=c.getJavaName()%]>
 	}
 	
 	[%for (a in c.eAllAttributes.select(a|a.isAnnotatedAs("searchable"))) { %]
-	public Iterable<[%=c.name%]> findBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
+	public Iterable<[%=c.getJavaName()%]> findBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
 		return new IteratorIterable<[%=c.getJavaName()%]>(new PongoCursorIterator<[%=c.name%]>(this, dbCollection.find(new BasicDBObject("[%=a.name%]", q + ""))));
+	}
+	
+	public [%=c.getJavaName()%] findOneBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
+		return ([%=c.getJavaName()%]) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("[%=a.name%]", q + "")));
+	}
+
+	public long countBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
+		return dbCollection.count(new BasicDBObject("[%=a.name%]", q + ""));
 	}
 	[%}%]
 	

@@ -1,8 +1,8 @@
 [%import "javautil.eol";%]
 package [%=c.ePackage.name%];
 
-import com.googlecode.pongo.runtime.PongoDB;
-import com.mongodb.DB;
+import com.googlecode.pongo.runtime.*;
+import com.mongodb.*;
 
 public class [%=c.name%] extends PongoDB {
 	

@@ -1,5 +1,8 @@
 package com.googlecode.pongo.tests.blog;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -7,6 +10,7 @@ import com.googlecode.pongo.runtime.PongoFactory;
 import com.googlecode.pongo.tests.blog.model.AuthorCollection;
 import com.googlecode.pongo.tests.blog.model.Blog;
 import com.googlecode.pongo.tests.blog.model.MemberCollection;
+import com.googlecode.pongo.tests.blog.model.Post;
 import com.googlecode.pongo.tests.blog.model.PostCollection;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
@@ -33,6 +37,17 @@ public class BlogTests {
 	@After
 	public void teardown() {
 		PongoFactory.getInstance().clear();
+	}
+	
+	protected List<Post> createPosts(String... titles) {
+		ArrayList<Post> posts = new ArrayList<>();
+		for (String title : titles) {
+			Post post = new Post();
+			post.setTitle(title);
+			blog.getPosts().add(post);
+			posts.add(post);
+		}
+		return posts;
 	}
 	
 }

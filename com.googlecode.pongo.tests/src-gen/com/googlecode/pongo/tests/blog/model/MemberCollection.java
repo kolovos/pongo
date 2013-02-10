@@ -1,13 +1,8 @@
 package com.googlecode.pongo.tests.blog.model;
 
-import com.googlecode.pongo.runtime.PongoCollection;
-import com.googlecode.pongo.runtime.PongoCursorIterator;
-import com.googlecode.pongo.runtime.IteratorIterable;
-
-import java.util.Iterator;
-
-import com.mongodb.DBCollection;
-import com.mongodb.BasicDBObject;
+import com.googlecode.pongo.runtime.*;
+import java.util.*;
+import com.mongodb.*;
 
 public class MemberCollection extends PongoCollection<Member> {
 	
@@ -21,6 +16,14 @@ public class MemberCollection extends PongoCollection<Member> {
 	
 	public Iterable<Member> findByName(String q) {
 		return new IteratorIterable<Member>(new PongoCursorIterator<Member>(this, dbCollection.find(new BasicDBObject("name", q + ""))));
+	}
+	
+	public Member findOneByName(String q) {
+		return (Member) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("name", q + "")));
+	}
+
+	public long countByName(String q) {
+		return dbCollection.count(new BasicDBObject("name", q + ""));
 	}
 	
 	@Override
