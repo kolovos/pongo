@@ -30,7 +30,7 @@ rule EClass2DBClass
 	
 	template : "eclass2dbclass.egl"
 	
-	target : c.name + "DB.java"
+	target : c.name + ".java"
 	
 }
 

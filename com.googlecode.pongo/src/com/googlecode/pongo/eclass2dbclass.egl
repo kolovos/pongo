@@ -4,9 +4,9 @@ package [%=c.ePackage.name%];
 import com.googlecode.pongo.runtime.PongoDB;
 import com.mongodb.DB;
 
-public class [%=c.name%]DB extends PongoDB {
+public class [%=c.name%] extends PongoDB {
 	
-	public [%=c.name%]DB(DB db) {
+	public [%=c.name%](DB db) {
 		super(db);
 		[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
 		[%=ref.name%] = new [%=ref.eType.name%]Collection(db.getCollection("[%=ref.name%]"));
