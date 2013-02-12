@@ -6,12 +6,10 @@ import com.mongodb.*;
 
 public class [%=c.name%] extends PongoDB {
 	
+	public [%=c.name%]() {}
+	
 	public [%=c.name%](DB db) {
-		super(db);
-		[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
-		[%=ref.name%] = new [%=ref.eType.name%]Collection(db.getCollection("[%=ref.name%]"));
-		pongoCollections.add([%=ref.name%]);
-		[%}%]
+		setDb(db);
 	}
 	
 	[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
@@ -25,4 +23,12 @@ public class [%=c.name%] extends PongoDB {
 	
 	[%}%]
 	
+	@Override
+	public void setDb(DB db) {
+		super.setDb(db);
+		[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
+		[%=ref.name%] = new [%=ref.eType.name%]Collection(db.getCollection("[%=ref.name%]"));
+		pongoCollections.add([%=ref.name%]);
+		[%}%]
+	}
 }

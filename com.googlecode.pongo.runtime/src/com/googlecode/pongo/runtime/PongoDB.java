@@ -11,7 +11,13 @@ public class PongoDB {
 	protected List<PongoCollection> pongoCollections = new ArrayList<PongoCollection>();
 	protected boolean clearPongoCacheOnSync = false;
 	
+	public PongoDB() {}
+	
 	public PongoDB(DB db) {
+		setDb(db);
+	}
+	
+	public void setDb(DB db) {
 		this.db = db;
 	}
 	

@@ -51,6 +51,9 @@ public class PongoFactory {
 	}
 	
 	public Pongo createPongo(DBObject dbObject, DBCollection dbCollection) {
+		
+		if (dbObject == null) return null;
+		
 		try {
 			String fullyQualifieId = getFullyQualifiedId(dbObject, dbCollection);
 			Pongo pongo = (Pongo) cache.get(fullyQualifieId);

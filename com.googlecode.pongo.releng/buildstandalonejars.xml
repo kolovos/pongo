@@ -4,7 +4,7 @@
 	<property name="p" value="D:/Projects/Eclipse/4.2.1/plugins"></property>
 	<property name="w" value="D:\Projects\Eclipse\4.2.1\workspace"></property>
 	<property name="r" value="${w}\com.googlecode.pongo.releng"></property>
-	<property name="v" value="0.1"/>
+	<property name="v" value="0.4"/>
 		
 	<target name="test_jar" depends="package_jars">
 		<java jar="pongo.jar" args="${w}/com.googlecode.pongo.tests/src-gen/com/googlecode/pongo/tests/blog/model/blog.emf" fork="true">
@@ -23,7 +23,13 @@
 		</zip>
 	</target>
 			
-	<target name="build_jars" depends="build_generator_jar, build_runtime_jar, build_runtime_and_dependencies_jar"/>
+	<target name="build_jars" depends="delete_jars, build_generator_jar, build_runtime_jar, build_runtime_and_dependencies_jar"/>
+	
+	<target name="delete_jars">
+		<delete file="${r}\pongo.jar"/>
+		<delete file="${r}\pongo-runtime.jar"/>
+		<delete file="${r}\pongo-runtime-and-dependencies.jar"/>					
+	</target>
 	
     <target name="build_generator_jar">
         <jar destfile="${r}\pongo.jar" filesetmanifest="mergewithoutmain">
