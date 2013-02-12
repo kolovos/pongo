@@ -5,14 +5,10 @@ import com.mongodb.*;
 
 public class Blog extends PongoDB {
 	
+	public Blog() {}
+	
 	public Blog(DB db) {
-		super(db);
-		posts = new PostCollection(db.getCollection("posts"));
-		pongoCollections.add(posts);
-		members = new MemberCollection(db.getCollection("members"));
-		pongoCollections.add(members);
-		authors = new AuthorCollection(db.getCollection("authors"));
-		pongoCollections.add(authors);
+		setDb(db);
 	}
 	
 	protected PostCollection posts = null;
@@ -32,4 +28,14 @@ public class Blog extends PongoDB {
 	}
 	
 	
+	@Override
+	public void setDb(DB db) {
+		super.setDb(db);
+		posts = new PostCollection(db.getCollection("posts"));
+		pongoCollections.add(posts);
+		members = new MemberCollection(db.getCollection("members"));
+		pongoCollections.add(members);
+		authors = new AuthorCollection(db.getCollection("authors"));
+		pongoCollections.add(authors);
+	}
 }

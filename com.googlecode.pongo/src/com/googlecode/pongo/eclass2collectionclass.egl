@@ -27,7 +27,11 @@ public class [%=c.name%]Collection extends PongoCollection<[%=c.getJavaName()%]>
 	}
 	
 	public [%=c.getJavaName()%] findOneBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
-		return ([%=c.getJavaName()%]) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("[%=a.name%]", q + "")));
+		[%=c.getJavaName()%] [%=c.name.ftlc()%] = ([%=c.getJavaName()%]) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("[%=a.name%]", q + "")));
+		if ([%=c.name.ftlc()%] != null) {
+			[%=c.name.ftlc()%].setPongoCollection(this);
+		}
+		return [%=c.name.ftlc()%];
 	}
 
 	public long countBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {

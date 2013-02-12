@@ -19,7 +19,11 @@ public class AuthorCollection extends PongoCollection<Author> {
 	}
 	
 	public Author findOneByName(String q) {
-		return (Author) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("name", q + "")));
+		Author author = (Author) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("name", q + "")));
+		if (author != null) {
+			author.setPongoCollection(this);
+		}
+		return author;
 	}
 
 	public long countByName(String q) {

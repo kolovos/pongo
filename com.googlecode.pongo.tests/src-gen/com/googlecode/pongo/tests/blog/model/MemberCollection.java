@@ -19,7 +19,11 @@ public class MemberCollection extends PongoCollection<Member> {
 	}
 	
 	public Member findOneByName(String q) {
-		return (Member) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("name", q + "")));
+		Member member = (Member) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("name", q + "")));
+		if (member != null) {
+			member.setPongoCollection(this);
+		}
+		return member;
 	}
 
 	public long countByName(String q) {

@@ -20,7 +20,11 @@ public class PostCollection extends PongoCollection<Post> {
 	}
 	
 	public Post findOneByTitle(String q) {
-		return (Post) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("title", q + "")));
+		Post post = (Post) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("title", q + "")));
+		if (post != null) {
+			post.setPongoCollection(this);
+		}
+		return post;
 	}
 
 	public long countByTitle(String q) {
