@@ -1,13 +1,8 @@
 package com.googlecode.pongo.tests.stubs.model;
 
-import com.googlecode.pongo.runtime.PongoCollection;
-import com.googlecode.pongo.runtime.PongoCursorIterator;
-import com.googlecode.pongo.runtime.IteratorIterable;
-
-import java.util.Iterator;
-
-import com.mongodb.DBCollection;
-import com.mongodb.BasicDBObject;
+import com.googlecode.pongo.runtime.*;
+import java.util.*;
+import com.mongodb.*;
 
 public class GoogleProjectCollection extends PongoCollection<GoogleProject> {
 	

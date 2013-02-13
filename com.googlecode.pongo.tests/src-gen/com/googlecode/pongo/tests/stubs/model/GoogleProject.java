@@ -1,14 +1,8 @@
 package com.googlecode.pongo.tests.stubs.model;
 
-import com.mongodb.DBObject;
-import com.mongodb.BasicDBObject;
-import com.mongodb.BasicDBList;
-
-import java.util.List;
-import com.googlecode.pongo.runtime.Pongo;
-import com.googlecode.pongo.runtime.PongoList;
-import com.googlecode.pongo.runtime.PrimitiveList;
-import com.googlecode.pongo.runtime.PongoFactory;
+import com.mongodb.*;
+import java.util.*;
+import com.googlecode.pongo.runtime.*;
 
 
 public class GoogleProject extends com.googlecode.pongo.tests.stubs.model.ProjectFromAnotherLibrary {
@@ -20,11 +14,6 @@ public class GoogleProject extends com.googlecode.pongo.tests.stubs.model.Projec
 		super();
 		dbObject.put("developers", new BasicDBList());
 	}
-	
-	/*
-	public GoogleProject(DBObject dbObject) {
-		super(dbObject);
-	}*/
 	
 	public String getName() {
 		return parseString(dbObject.get("name")+"", "");

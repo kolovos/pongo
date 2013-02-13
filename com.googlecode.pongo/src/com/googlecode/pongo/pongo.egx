@@ -39,7 +39,7 @@ rule EClass2CollectionClass
 	
 	guard : c.isAnnotatedAs("collection") or 
 		EClass.all.select(e|e.isAnnotatedAs("db")).
-			exists(e|e.eAllStructuralFeatures.exists(sf|sf.eType = c))
+			exists(e|e.eAllStructuralFeatures.exists(sf|sf.eType = c and sf.getAnnotationValue("collection", "fromstub") <> "true"))
 	
 	template : "eclass2collectionclass.egl"
 	

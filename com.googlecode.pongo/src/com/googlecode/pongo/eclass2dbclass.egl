@@ -13,11 +13,11 @@ public class [%=c.name%] extends PongoDB {
 	}
 	
 	[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
-	protected [%=ref.eType.name%]Collection [%=ref.name%] = null;
+	protected [%=ref.getJavaCollectionType()%] [%=ref.name%] = null;
 	[%}%]
 	
 	[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
-	public [%=ref.eType.name%]Collection get[%=ref.name.ftuc()%]() {
+	public [%=ref.getJavaCollectionType()%] get[%=ref.name.ftuc()%]() {
 		return [%=ref.name%];
 	}
 	
@@ -27,7 +27,7 @@ public class [%=c.name%] extends PongoDB {
 	public void setDb(DB db) {
 		super.setDb(db);
 		[%for (ref in c.eAllReferences.select(sf|sf.isMany and sf.isContainment)){%]
-		[%=ref.name%] = new [%=ref.eType.name%]Collection(db.getCollection("[%=ref.name%]"));
+		[%=ref.name%] = new [%=ref.getJavaCollectionType()%](db.getCollection("[%=ref.getMongoCollectionName()%]"));
 		pongoCollections.add([%=ref.name%]);
 		[%}%]
 	}
