@@ -13,7 +13,7 @@ public class PongoFactory {
 	
 	protected static PongoFactory instance = new PongoFactory();
 	protected ReferenceMap cache = null;
-	protected HashMap<String, Class<?>> classCache = new HashMap<>();
+	protected HashMap<String, Class<?>> classCache = new HashMap<String, Class<?>>();
 	
 	private PongoFactory(){
 		cache = new ReferenceMap(ReferenceMap.HARD, ReferenceMap.SOFT);

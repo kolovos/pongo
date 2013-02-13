@@ -45,7 +45,7 @@ public class BlogTests {
 	}
 	
 	protected List<Post> createPosts(String... titles) {
-		ArrayList<Post> posts = new ArrayList<>();
+		ArrayList<Post> posts = new ArrayList<Post>();
 		for (String title : titles) {
 			Post post = new Post();
 			post.setTitle(title);

@@ -15,7 +15,7 @@ public class PrimitiveList<T> extends BasicDBListWrapper<T>{
 
 	@Override
 	public Iterator<T> iterator() {
-		return new PrimitiveListIterator<>(dbList.iterator());
+		return new PrimitiveListIterator<T>(dbList.iterator());
 	}
 
 	@Override
