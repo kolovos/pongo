@@ -35,6 +35,8 @@ public class PongoGenerator {
 			model.setModelFile(inputFile.getAbsolutePath());
 			model.load();
 			generate(model, inputFile.getParentFile());
+
+			model.disposeModel(); 
 		}
 		else if (inputFile.getName().endsWith(".emf")){
 			EcoreGenerator ecoreGenerator = new EcoreGenerator();
