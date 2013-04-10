@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Dependencies
 Bundle-SymbolicName: com.googlecode.pongo.runtime.dependencies
-Bundle-Version: 1.0.0
+Bundle-Version: 0.5.0.qualifier
 Bundle-ClassPath: mongo-2.9.3.jar,
  commons-collections-3.2.1.jar
 Export-Package: com.mongodb,
