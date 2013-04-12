@@ -1,6 +1,5 @@
 package com.googlecode.pongo.runtime;
 
-import java.security.InvalidParameterException;
 import java.util.UUID;
 
 import com.mongodb.BasicDBObject;
@@ -140,6 +139,18 @@ public class Pongo {
 		else {
 			try {
 				return Float.parseFloat(str);
+			}
+			catch (Exception ex) {
+				return def;
+			}
+		}
+	}
+	
+	protected double parseDouble(String str, double def) {
+		if (str == null) return def;
+		else {
+			try {
+				return Double.parseDouble(str);
 			}
 			catch (Exception ex) {
 				return def;
