@@ -1,6 +1,7 @@
 package com.googlecode.pongo.runtime;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.collections.map.ReferenceMap;
 
@@ -13,10 +14,11 @@ public class PongoFactory {
 	
 	protected static PongoFactory instance = new PongoFactory();
 	protected ReferenceMap cache = null;
-	protected HashMap<String, Class<?>> classCache = new HashMap<String, Class<?>>();
+	protected List<PongoFactoryContributor> contributors = new ArrayList<PongoFactoryContributor>();
 	
 	private PongoFactory(){
 		cache = new ReferenceMap(ReferenceMap.HARD, ReferenceMap.SOFT);
+		getContributors().add(new ClasspathPongoFactoryContributor());
 	}
 	
 	public static PongoFactory getInstance() {
@@ -59,7 +61,7 @@ public class PongoFactory {
 			Pongo pongo = (Pongo) cache.get(fullyQualifieId);
 			if (fullyQualifieId == null || pongo == null) {
 				String className = dbObject.get("_type") + "";
-				pongo = (Pongo) classForName(className).newInstance();
+				pongo = createPongo(className);
 				pongo.dbObject = dbObject;
 				if (fullyQualifieId != null) {
 					cache.put(fullyQualifieId, pongo);
@@ -78,13 +80,19 @@ public class PongoFactory {
 		return dbCollection.getDB().getName() + "." + dbCollection.getName() + "." + dbObject.get("_id");
 	}
 	
-	protected Class<?> classForName(String className) throws Exception {
-		Class<?> clazz = classCache.get(className);
-		if (clazz == null) {
-			clazz = Class.forName(className);
-			classCache.put(className, clazz);
+	protected Pongo createPongo(String className) throws Exception {
+		
+		for (PongoFactoryContributor contributor : contributors) {
+			if (contributor.canCreate(className)) {
+				return contributor.create(className);
+			}
 		}
-		return clazz;
+		
+		throw new RuntimeException("Could not create pongo for class " + className);
+		
 	}
 	
+	public List<PongoFactoryContributor> getContributors() {
+		return contributors;
+	}
 }
