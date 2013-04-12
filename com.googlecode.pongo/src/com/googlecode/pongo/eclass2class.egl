@@ -12,7 +12,7 @@ import com.googlecode.pongo.runtime.*;
 // protected region custom-imports end
 [%}%]
 
-public class [%=c.name%] extends [%=c.getJavaExtends()%] {
+public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends()%] {
 	
 	[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
 	protected List<[%=sf.eType.getJavaBoxedName()%]> [%=sf.name%] = null;

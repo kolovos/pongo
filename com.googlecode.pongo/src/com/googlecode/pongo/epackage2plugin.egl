@@ -8,7 +8,7 @@ import "ecoreutil.eol";
    <extension
          point="com.googlecode.pongo.runtime.osgi">
          
-      [%for (c in EClass.all.select(c|not c.isAnnotatedAs("stub"))) { %]
+      [%for (c in EClass.all.select(c|(not c.abstract) and (not c.isAnnotatedAs("stub")))) { %]
 	  <class
             name="[%=p.name%].[%=c.name%]">
       </class>

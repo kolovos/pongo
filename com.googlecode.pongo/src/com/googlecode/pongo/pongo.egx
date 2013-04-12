@@ -3,9 +3,10 @@ import "ecoreutil.eol";
 
 pre {
 
-	var keywords = List{"abstract", "volatile", "transient", "interface", "container", "private"};
+	var keywords = List{"abstract", "volatile", "transient", 
+		"interface", "container", "private", "public"};
 	
-	for (e in EStructuralFeature.all) {
+	for (e in EStructuralFeature.all.includingAll(EEnumLiteral.all)) {
 		if (keywords.includes(e.name)) {
 			e.name = "_" + e.name;
 		}

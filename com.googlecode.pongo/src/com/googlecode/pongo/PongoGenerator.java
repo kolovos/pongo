@@ -12,7 +12,7 @@ import org.eclipse.epsilon.eol.execute.context.Variable;
 
 public class PongoGenerator {
 	
-	protected boolean generatePluginXml = false;
+	protected boolean generatePluginXml = true;
 	
 	public static void main(String[] args) throws Exception {
 		
