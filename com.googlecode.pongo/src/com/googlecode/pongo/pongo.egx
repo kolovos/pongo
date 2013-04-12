@@ -34,6 +34,17 @@ rule EClass2DBClass
 	
 }
 
+rule EPackage2Plugin
+	transform p : EPackage {
+	
+	guard: generatePluginXml
+	
+	template : "epackage2plugin.egl"
+	
+	target : 1.to(p.name.split("\\.").size()).collect(i|'..').concat("/") + "/../plugin.xml"
+	
+}
+
 rule EClass2CollectionClass 
 	transform c : EClass {
 	

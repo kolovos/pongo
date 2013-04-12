@@ -39,7 +39,7 @@ public class PongoObjectActionDelegate implements IObjectActionDelegate {
 	 */
 	public void run(IAction action) {
 		IFile selectedFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
-		PongoGenerator generator = new PongoGenerator();
+		PongoGenerator generator = new PongoGenerator("com.googlecode.pongo.generatepongosandpluginxml".equals(action.getId()));
 		try {
 			generator.generate(new File(selectedFile.getLocation().toOSString()));
 			selectedFile.getParent().refreshLocal(IFile.DEPTH_INFINITE, new NullProgressMonitor());
@@ -54,5 +54,5 @@ public class PongoObjectActionDelegate implements IObjectActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {
 		this.selection = selection;
 	}
-
+	
 }

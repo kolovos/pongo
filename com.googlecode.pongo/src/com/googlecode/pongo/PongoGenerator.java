@@ -8,8 +8,11 @@ import org.eclipse.emf.emfatic.core.generator.ecore.EcoreGenerator;
 import org.eclipse.epsilon.egl.EglFileGeneratingTemplateFactory;
 import org.eclipse.epsilon.egl.EgxModule;
 import org.eclipse.epsilon.emc.emf.EmfModel;
+import org.eclipse.epsilon.eol.execute.context.Variable;
 
 public class PongoGenerator {
+	
+	protected boolean generatePluginXml = false;
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -21,6 +24,12 @@ public class PongoGenerator {
 		PongoGenerator pg = new PongoGenerator();
 		pg.generate(new File(args[0]));
 		
+	}
+	
+	public PongoGenerator() {}
+	
+	public PongoGenerator(boolean generatePluginXml) {
+		this.generatePluginXml = generatePluginXml;
 	}
 	
 	protected File outputDirectory = null;
@@ -50,12 +59,14 @@ public class PongoGenerator {
 		
 		EglFileGeneratingTemplateFactory templateFactory = new EglFileGeneratingTemplateFactory();
 		templateFactory.setOutputRoot(directory.getAbsolutePath());
-		EgxModule module = new EgxModule(templateFactory);
 		
+		EgxModule module = new EgxModule(templateFactory);
 		module.parse(PongoGenerator.class.getResource("pongo.egx").toURI());
 		module.getContext().getModelRepository().addModel(model);
+		module.getContext().getFrameStack().put(Variable.createReadOnlyVariable("generatePluginXml", generatePluginXml));
 		module.execute();
 		
 	}
+	
 	
 }

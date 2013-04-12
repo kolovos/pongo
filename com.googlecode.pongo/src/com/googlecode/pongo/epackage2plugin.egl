@@ -1,0 +1,18 @@
+[%
+import "javautil.eol";
+import "ecoreutil.eol";
+%]
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.googlecode.pongo.runtime.osgi">
+         
+      [%for (c in EClass.all.select(c|not c.isAnnotatedAs("stub"))) { %]
+	  <class
+            name="[%=p.name%].[%=c.name%]">
+      </class>
+	  [%}%]   
+   </extension>
+
+</plugin>
