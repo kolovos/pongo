@@ -33,6 +33,22 @@ public class [%=c.name%]Collection extends PongoCollection<[%=c.getJavaName()%]>
 		}
 		return [%=c.name.ftlc()%];
 	}
+	
+	[%for (subC in EClass.all.select(sc | sc.eSuperTypes.includes(c))) {%]
+	
+	public Iterable<[%=c.getJavaName()%]> find[%=subC.name%]sBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
+		return new IteratorIterable<[%=c.getJavaName()%]>(new PongoCursorIterator<[%=c.name%]>(this, dbCollection.find(new BasicDBObject("[%=a.name%]", q + "").append("_type", "[%=subC.ePackage.name%].[%=subC.name%]"))));
+	}
+	
+	public [%=c.getJavaName()%] findOne[%=subC.name%]By[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
+		[%=c.getJavaName()%] [%=c.name.ftlc()%] = ([%=c.getJavaName()%]) PongoFactory.getInstance().createPongo(dbCollection.findOne(new BasicDBObject("[%=a.name%]", q + "").append("_type", "[%=subC.ePackage.name%].[%=subC.name%]")));
+		if ([%=c.name.ftlc()%] != null) {
+			[%=c.name.ftlc()%].setPongoCollection(this);
+		}
+		return [%=c.name.ftlc()%];
+	}
+	
+	[%}%]
 
 	public long countBy[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] q) {
 		return dbCollection.count(new BasicDBObject("[%=a.name%]", q + ""));
