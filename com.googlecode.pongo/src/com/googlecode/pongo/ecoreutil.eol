@@ -49,3 +49,14 @@ operation EModelElement getAnnotation(name : String) : EAnnotation {
 operation EModelElement isAnnotatedAs(name : String) : Boolean {
 	return self.getAnnotation(name).isDefined();
 }
+
+operation EClass getAllSuperTypes() : Sequence {
+	var supers = new Sequence;
+	
+	for (super in self.eSuperTypes) {
+		supers.add(super);
+		supers.addAll(super.getAllSuperTypes());
+	}
+	
+	return supers;
+}

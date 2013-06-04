@@ -5,6 +5,7 @@ package [%=c.ePackage.name%];
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 [%if (c.isAnnotatedAs("customize")){%]
 [% out.setContentType("Java"); %]
@@ -35,7 +36,26 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
 		dbObject.put("[%=sf.name%]", new BasicDBList());
 		[%}%]
+		[%if (c.eSuperTypes.size() > 0) {%]
+		[%var supers = c.getAllSuperTypes();%]
+		super.setSuperTypes([%var f=false;for (scName in supers.collect(sc | sc.ePackage.name + "." + sc.name)) { if(f) {%],[%}%]"[%=scName%]"[%f=true;}%]);
+		[%}%]
+		[%for (a in c.eAllAttributes) { %]
+		[%=a.name.toUpperCase()%].setOwningType("[%=c.ePackage.name%].[%=c.name%]");
+		[%}%]
 	}
+	
+	[%for (a in c.eAllAttributes.select(a|not a.isMany)) { %]
+	[%if (a.eType.isNumeric()) {%]
+	public static NumericalQueryProducer [%=a.name.toUpperCase()%] = new NumericalQueryProducer("[%=a.name%]");
+	[%} else {%]
+	public static StringQueryProducer [%=a.name.toUpperCase()%] = new StringQueryProducer("[%=a.name%]"); 
+	[%}%]
+	[%}%]
+	[%for (a in c.eAllAttributes.select(a|a.isMany)) { %]
+	public static ArrayQueryProducer [%=a.name.toUpperCase()%] = new ArrayQueryProducer("[%=a.name%]");
+	[%}%]
+	
 	
 	[%for (a in c.eAttributes.select(a|not a.isMany)) { %]
 	[%if (a.eType.isTypeOf(EEnum)){%]
@@ -54,7 +74,7 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 	[%}%]
 	
 	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
-		dbObject.put("[%=a.name%]", [%=a.name%] + "");
+		dbObject.put("[%=a.name%]", [%=a.name%]);
 		notifyChanged();
 		return this;
 	}

@@ -52,6 +52,17 @@ operation EReference getMongoCollectionName() {
 	}
 }
 
+operation EClassifier isNumeric() : Boolean {
+	switch (self.name) {
+		case "ELong": return true;
+		case "EInt": return true;
+		case "EIntegerObject": return true;
+		case "EFloat": return true;
+		case "EDouble": return true;
+		default: return false;
+	}
+}
+
 operation EClassifier getJavaName() {
 	if (self.isAnnotatedAs("stub")) {
 		return self.getAnnotationValue("stub", "javaClass");
