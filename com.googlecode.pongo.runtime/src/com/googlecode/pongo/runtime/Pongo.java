@@ -39,6 +39,12 @@ public class Pongo {
 		dbObject.put("_type", type);
 	}
 	
+	protected void setSuperTypes(String... supers) {
+		// To be overridden.
+		dbObject.put("_superTypes", supers);
+		
+	}
+	
 	public Pongo getContainer() {
 		return container;
 	}

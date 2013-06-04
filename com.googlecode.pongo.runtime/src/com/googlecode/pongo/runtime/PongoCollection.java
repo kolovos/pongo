@@ -4,10 +4,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import com.googlecode.pongo.runtime.querying.QueryProducer;
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 
-public abstract class PongoCollection<T> implements Iterable<T> {
+public abstract class PongoCollection<T extends Pongo> implements Iterable<T> {
 	
 	protected DBCollection dbCollection;
 	protected Set<Pongo> toSave = new HashSet<Pongo>();
@@ -27,6 +29,30 @@ public abstract class PongoCollection<T> implements Iterable<T> {
 	
 	public String getName() {
 		return dbCollection.getName();
+	}
+	
+	public Iterable<T> find(QueryProducer query) {
+		return new IteratorIterable<T>(new PongoCursorIterator<T>(this, dbCollection.find(query.getDBObject())));
+	}
+	
+	public Iterable<T> find(QueryProducer... queries) {
+		BasicDBObject obj = new BasicDBObject();
+		BasicDBList list = new BasicDBList();
+		
+		for (int i = 0; i < queries.length; i++) {
+			list.add(queries[i].getDBObject());
+		}
+		obj.append("$and", list);
+//		System.out.println(obj.toString());
+		return new IteratorIterable<T>(new PongoCursorIterator<T>(this, dbCollection.find(obj)));
+	}
+	
+	public T findOne(QueryProducer query) {
+		T t = (T) PongoFactory.getInstance().createPongo(dbCollection.findOne(query.getDBObject()));
+		if (t != null) {
+			t.setPongoCollection(this);
+		}
+		return t;
 	}
 	
 	protected void add(Pongo pongo) {

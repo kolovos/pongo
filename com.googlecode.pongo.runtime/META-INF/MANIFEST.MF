@@ -8,4 +8,5 @@ Require-Bundle: org.eclipse.ui,
  com.googlecode.pongo.runtime.dependencies;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: com.googlecode.pongo.runtime
+Export-Package: com.googlecode.pongo.runtime,
+ com.googlecode.pongo.runtime.querying
