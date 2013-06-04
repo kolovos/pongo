@@ -9,7 +9,11 @@
       <eAnnotations source="searchable"/>
       <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="age">
+      <eType xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildOne" eSuperTypes="//Parent"/>
   <eClassifiers xsi:type="ecore:EClass" name="ChildTwo" eSuperTypes="//Parent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Grandchild" eSuperTypes="//ChildTwo"/>
 </ecore:EPackage>

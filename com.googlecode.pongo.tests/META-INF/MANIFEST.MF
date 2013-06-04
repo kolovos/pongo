@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
-Bundle-SymbolicName: com.googlecode.pongo.tests
+Bundle-SymbolicName: com.googlecode.pongo.tests;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: com.googlecode.pongo.tests.blog.Activator
 Bundle-Vendor: GOOGLECODE

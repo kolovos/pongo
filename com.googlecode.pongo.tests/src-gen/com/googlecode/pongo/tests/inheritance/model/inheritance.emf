@@ -8,6 +8,7 @@ class InheritanceDB {
 abstract class Parent {
 	@searchable
 	attr String name;
+	attr int age;
 }
 
 class ChildOne extends Parent {
@@ -15,5 +16,9 @@ class ChildOne extends Parent {
 }
 
 class ChildTwo extends Parent {
+	
+}
+
+class Grandchild extends ChildTwo {
 	
 }

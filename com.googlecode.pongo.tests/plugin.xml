@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="com.googlecode.pongo.runtime.osgi">
+         
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Zoo">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Monkey">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Tiger">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Zebra">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Shark">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Cafe">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.TicketOffice">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Enclosure">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.Keeper">
+      </class>
+	  <class
+            name="com.googlecode.pongo.tests.zoo.model.GeneralStaff">
+      </class>
+   
+   </extension>
+
+</plugin>
