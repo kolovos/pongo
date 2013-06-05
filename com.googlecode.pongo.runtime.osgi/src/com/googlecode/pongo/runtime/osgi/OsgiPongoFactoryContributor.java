@@ -21,7 +21,6 @@ public class OsgiPongoFactoryContributor implements PongoFactoryContributor {
 			discoverExtensions();
 		}
 		boolean result = cache.containsKey(className);
-		System.err.println("->" + result);
 		return result;
 	}
 
@@ -45,7 +44,6 @@ public class OsgiPongoFactoryContributor implements PongoFactoryContributor {
 		IConfigurationElement[] configurationElements = extenstionPoint.getConfigurationElements();
 		
 		for (int i=0;i<configurationElements.length;i++) {
-			System.err.println(configurationElements[i].getAttribute("name"));
 			cache.put(configurationElements[i].getAttribute("name"), configurationElements[i]);			
 		}
 	
