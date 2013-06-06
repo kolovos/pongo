@@ -42,7 +42,7 @@ public class PongoObjectActionDelegate implements IObjectActionDelegate {
 		PongoGenerator generator = new PongoGenerator("com.googlecode.pongo.generatepongosandpluginxml".equals(action.getId()));
 		try {
 			generator.generate(new File(selectedFile.getLocation().toOSString()));
-			selectedFile.getParent().refreshLocal(IFile.DEPTH_INFINITE, new NullProgressMonitor());
+			selectedFile.getProject().refreshLocal(IFile.DEPTH_INFINITE, new NullProgressMonitor());
 		} catch (Exception e) {
 			MessageDialog.openError(shell, "Error", e.getMessage());
 		}

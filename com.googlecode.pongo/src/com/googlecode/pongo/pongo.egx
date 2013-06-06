@@ -13,6 +13,35 @@ pre {
 	}
 }
 
+post {
+
+	// Update plugin.xml instead of overwriting it
+	
+	if (generatePluginXml) {
+	
+		var p = EPackage.all.first();
+		
+		var plugin = PluginXml!Element.all.first();
+		if (plugin.isUndefined()) {
+			plugin = new PluginXml!t_plugin;
+			PluginXml.root = plugin;
+		}
+		var extensions = plugin.c_extension.select(e|e.a_point = "com.googlecode.pongo.runtime.osgi");
+		delete extensions;
+		
+		var extension = new PluginXml!t_extension;
+		extension.a_point = "com.googlecode.pongo.runtime.osgi";
+		plugin.appendChild(extension);
+		
+		for (c in EClass.all.select(c|(not c.abstract) and (not c.isAnnotatedAs("stub")))) { 
+			var class = new PluginXml!t_class;
+			class.a_name = p.name + "." + c.name;
+			extension.appendChild(class);
+		}
+	}
+	
+}
+
 rule EClass2Class 
 	transform c : EClass {
 	
@@ -32,17 +61,6 @@ rule EClass2DBClass
 	template : "eclass2dbclass.egl"
 	
 	target : c.name + ".java"
-	
-}
-
-rule EPackage2Plugin
-	transform p : EPackage {
-	
-	guard: generatePluginXml
-	
-	template : "epackage2plugin.egl"
-	
-	target : 1.to(p.name.split("\\.").size()).collect(i|'..').concat("/") + "/../plugin.xml"
 	
 }
 
