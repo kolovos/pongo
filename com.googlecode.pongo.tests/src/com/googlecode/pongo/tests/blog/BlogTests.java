@@ -17,11 +17,11 @@ import com.mongodb.Mongo;
 
 public class BlogTests {
 
-	PostCollection posts = null;
-	AuthorCollection authors = null;
-	MemberCollection members = null;
-	Blog blog = null;
-	Mongo mongo = null;
+	protected PostCollection posts = null;
+	protected AuthorCollection authors = null;
+	protected MemberCollection members = null;
+	protected Blog blog = null;
+	protected Mongo mongo = null;
 	
 	@Before
 	public void setup() throws Exception {
