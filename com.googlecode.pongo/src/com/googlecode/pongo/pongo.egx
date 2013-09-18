@@ -87,3 +87,14 @@ rule EEnum2Enumeration
 	target : e.name + ".java"
 	
 }
+
+rule EClass2VizClass 
+	transform c : EClass {
+	
+	guard : c.isAnnotatedAs("viz")
+	
+	template : "eclass2vizclass.egl"
+	
+	target : c.name + "Viz.java"		
+}
+

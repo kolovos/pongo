@@ -74,7 +74,7 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 	[%}%]
 	
 	public [%=c.name%] set[%=a.name.ftuc()%]([%=a.eType.getJavaName()%] [%=a.name%]) {
-		dbObject.put("[%=a.name%]", [%=a.name%]);
+		dbObject.put("[%=a.name%]", [%=a.name%][%if(a.eType.isTypeOf(EEnum)){%].toString()[%}%]);
 		notifyChanged();
 		return this;
 	}

@@ -9,4 +9,5 @@ Require-Bundle: org.eclipse.ui,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: com.googlecode.pongo.runtime,
- com.googlecode.pongo.runtime.querying
+ com.googlecode.pongo.runtime.querying,
+ com.googlecode.pongo.runtime.viz
