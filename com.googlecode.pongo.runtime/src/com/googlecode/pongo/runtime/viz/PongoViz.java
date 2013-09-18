@@ -50,7 +50,7 @@ public abstract class PongoViz {
 			DBObject dbobj = it.next();
 			
 			String x = (String)dbobj.get(xaxis);
-			row.add(x);
+			row.add("\"" + x + "\"");
 			BasicDBList rd = (BasicDBList) dbobj.get(seriesKind);
 			
 			for (BasicDBObject bdbo : rd.toArray(new BasicDBObject[0])) {
