@@ -10,7 +10,7 @@ operation EClass toGoogleChart() : String {%]
 	var yAxis = getYAxis();
 	var series = getSeries();
 	var seriesLabel = getSeriesLabel();
- 	var options = "{ 'hAxis' : {'title':'" + xAxisTitle + "'}, 'vAxis':{'title' : '" + yAxisTitle + "' }, 'width':'90%','height':200, 'legend': {'position': 'in'}}";
+ 	var options = "{ 'hAxis' : {'title':'" + xAxisTitle + "'}, 'vAxis':{'title' : '" + yAxisTitle + "' }}";//, 'width':'90%','height':200, 'legend': {'position': 'in'}}";
 	var chartType = self.getChartType();
 %]
 	String dataTable = createDataTable("[%=series%]", "[%=seriesLabel%]", "[%=xAxis%]", "[%=yAxis%]");
