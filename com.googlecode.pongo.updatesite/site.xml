@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.googlecode.pongo.feature_0.5.0.201306061558.jar" id="com.googlecode.pongo.feature" version="0.5.0.201306061558">
+   <feature url="features/com.googlecode.pongo.feature_0.5.0.201309191553.jar" id="com.googlecode.pongo.feature" version="0.5.0.201309191553">
       <category name="Pongo"/>
    </feature>
-   <feature url="features/com.googlecode.pongo.runtime.feature_0.5.0.201306061558.jar" id="com.googlecode.pongo.runtime.feature" version="0.5.0.201306061558">
+   <feature url="features/com.googlecode.pongo.runtime.feature_0.5.0.201309191553.jar" id="com.googlecode.pongo.runtime.feature" version="0.5.0.201309191553">
       <category name="Pongo"/>
    </feature>
    <category-def name="Pongo" label="Pongo"/>
