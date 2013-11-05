@@ -27,6 +27,13 @@ public abstract class PongoViz {
 	}
 	
 	/**
+	 * Short term hack to filter different size data sets.
+	 * @author jimmy
+	 *
+	 */
+	public enum DateFilter {DAY, MONTH, YEAR, NONE};
+	
+	/**
 	 * Also sets lastValue.
 	 * @param seriesKind
 	 * @param seriesLabel
@@ -36,7 +43,7 @@ public abstract class PongoViz {
 	 * @param ytext
 	 * @return
 	 */
-	protected String createD3DataTable(String seriesKind, String seriesLabel, String xAxis, String yAxis, String xtext, String ytext) {
+	protected String createD3DataTable(String seriesKind, String seriesLabel, String xAxis, String yAxis, String xtext, String ytext, DateFilter filter) {
 		Iterator<DBObject> it = collection.find().iterator();
 		
 		String table = "[";
@@ -45,7 +52,10 @@ public abstract class PongoViz {
 			String xval = String.valueOf(dbobj.get(xAxis));
 			
 			// FIXME HARDCODED for dates - one a month
-			if (xAxis.equals("__date") && xval.trim().endsWith("01")) {
+			if (
+					(xAxis.equals("__date") && filter.equals(DateFilter.MONTH) && xval.trim().endsWith("01")) ||
+					(xAxis.equals("__date") && filter.equals(DateFilter.DAY))
+				) {
 				BasicDBList rd = (BasicDBList) dbobj.get(seriesKind); 
 				if (rd.size() == 0) continue; // Stops empty fields being added
 				
