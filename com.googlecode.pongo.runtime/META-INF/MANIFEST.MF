@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Runtime
 Bundle-SymbolicName: com.googlecode.pongo.runtime
 Bundle-Version: 0.5.0.qualifier
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
+Require-Bundle: org.eclipse.core.runtime,
  com.googlecode.pongo.runtime.dependencies;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
