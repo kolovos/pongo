@@ -85,6 +85,39 @@ public abstract class PongoViz {
 		return table;
 	}
 	
+	protected String createCSVDataTable(String seriesKind, String seriesLabel, String xAxis, String yAxis, String xtext, String ytext, DateFilter filter) {
+		Iterator<DBObject> it = collection.find().iterator();
+		
+		String table = xtext + "," + ytext + "," + seriesLabel + "\n";
+		
+		while (it.hasNext()) {
+			DBObject dbobj = it.next();
+			String xval = String.valueOf(dbobj.get(xAxis));
+			if (
+					(xAxis.equals("__date") && filter.equals(DateFilter.MONTH) && xval.trim().endsWith("01")) ||
+					(xAxis.equals("__date") && filter.equals(DateFilter.DAY))
+				) {
+				BasicDBList rd = (BasicDBList) dbobj.get(seriesKind); 
+				if (rd.size() == 0) continue; // Stops empty fields being added
+				
+				Iterator<Object> seriesIt = rd.iterator();
+				while (seriesIt.hasNext()) {
+					BasicDBObject bdbo = (BasicDBObject)seriesIt.next();
+					String yval = String.valueOf(bdbo.get(yAxis));
+					String seriesName = String.valueOf(bdbo.get(seriesLabel));
+					String row = xval+","+yval+","+seriesName+"\n"; 
+					table += row;
+					
+					lastValue = yval;
+				}
+				
+			} else if (!xAxis.equals("__date")) {
+				throw new RuntimeException("Not implemented.");
+			}
+		}
+		return table;
+	}
+	
 	/**
 	 * @param seriesKind
 	 * @param seriesLabel
