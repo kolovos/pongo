@@ -165,7 +165,7 @@ public class Pongo {
 	}
 	
 	protected boolean parseBoolean(String str, boolean def) {
-		if (str == null) return def;
+		if (str == null || "null".equals(str)) return def;
 		else {
 			try {
 				return Boolean.parseBoolean(str);
