@@ -33,6 +33,9 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 		[%for (r in c.eReferences.select(r|not r.isMany and not r.isContainment)) { %]
 		dbObject.put("[%=r.name%]", new BasicDBObject());
 		[%}%]
+		[%for (r in c.eReferences.select(r|r.isContainment and not r.isMany)) { %]
+		dbObject.put("[%=r.name%]", new BasicDBObject());
+		[%}%]
 		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
 		dbObject.put("[%=sf.name%]", new BasicDBList());
 		[%}%]
@@ -125,6 +128,7 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 	public [%=r.eType.getJavaName()%] get[%=r.name.ftuc()%]() {
 		if ([%=r.name%] == null && dbObject.containsField("[%=r.name%]")) {
 			[%=r.name%] = ([%=r.eType.getJavaName()%]) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("[%=r.name%]"));
+			[%=r.name%].setContainer(this);
 		}
 		return [%=r.name%];
 	}
