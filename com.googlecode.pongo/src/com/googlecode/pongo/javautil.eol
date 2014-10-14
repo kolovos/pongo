@@ -28,6 +28,7 @@ operation EClassifier getJavaBoxedName() {
 			case "EIntegerObject": return "Integer";
 			case "EBooleanObject": return "Boolean";
 			case "EDoubleObject": return "Double";
+			case "EDate": return "Date";
 			default: return self.name;
 		}
 	}

@@ -82,7 +82,6 @@ public class PongoFactory {
 	
 	protected Pongo createPongo(String className) throws Exception {
 		for (PongoFactoryContributor contributor : contributors) {
-			System.err.println(contributor + " " + className);
 			if (contributor.canCreate(className)) {
 				return contributor.create(className);
 			}
