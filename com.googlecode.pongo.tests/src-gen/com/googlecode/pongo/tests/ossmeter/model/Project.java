@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class Project extends NamedElement {
@@ -14,15 +15,28 @@ public class Project extends NamedElement {
 	
 	public Project() { 
 		super();
+		dbObject.put("sizeFact", new BasicDBObject());
+		dbObject.put("activityFact", new BasicDBObject());
 		dbObject.put("vcsRepositories", new BasicDBList());
+		super.setSuperTypes("com.googlecode.pongo.tests.ossmeter.model.NamedElement");
+		NAME.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Project");
+		DESCRIPTION.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Project");
+		YEAR.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Project");
+		ACTIVE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Project");
 	}
+	
+	public static StringQueryProducer NAME = new StringQueryProducer("name"); 
+	public static StringQueryProducer DESCRIPTION = new StringQueryProducer("description"); 
+	public static NumericalQueryProducer YEAR = new NumericalQueryProducer("year");
+	public static StringQueryProducer ACTIVE = new StringQueryProducer("active"); 
+	
 	
 	public String getDescription() {
 		return parseString(dbObject.get("description")+"", "");
 	}
 	
 	public Project setDescription(String description) {
-		dbObject.put("description", description + "");
+		dbObject.put("description", description);
 		notifyChanged();
 		return this;
 	}
@@ -31,7 +45,7 @@ public class Project extends NamedElement {
 	}
 	
 	public Project setYear(int year) {
-		dbObject.put("year", year + "");
+		dbObject.put("year", year);
 		notifyChanged();
 		return this;
 	}
@@ -40,7 +54,7 @@ public class Project extends NamedElement {
 	}
 	
 	public Project setActive(boolean active) {
-		dbObject.put("active", active + "");
+		dbObject.put("active", active);
 		notifyChanged();
 		return this;
 	}
@@ -57,6 +71,7 @@ public class Project extends NamedElement {
 	public SizeFact getSizeFact() {
 		if (sizeFact == null && dbObject.containsField("sizeFact")) {
 			sizeFact = (SizeFact) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("sizeFact"));
+			sizeFact.setContainer(this);
 		}
 		return sizeFact;
 	}
@@ -77,6 +92,7 @@ public class Project extends NamedElement {
 	public ActivityFact getActivityFact() {
 		if (activityFact == null && dbObject.containsField("activityFact")) {
 			activityFact = (ActivityFact) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("activityFact"));
+			activityFact.setContainer(this);
 		}
 		return activityFact;
 	}

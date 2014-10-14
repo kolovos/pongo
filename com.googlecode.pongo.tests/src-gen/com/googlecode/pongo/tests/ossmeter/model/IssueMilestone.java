@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class IssueMilestone extends Pongo {
@@ -14,16 +15,33 @@ public class IssueMilestone extends Pongo {
 	
 	public IssueMilestone() { 
 		super();
+		dbObject.put("creator", new BasicDBObject());
 		dbObject.put("open_issues", new BasicDBList());
 		dbObject.put("closed_issues", new BasicDBList());
+		URL.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		NUMBER.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		STATE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		TITLE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		DESCRIPTION.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		CREATED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
+		DUE_ON.setOwningType("com.googlecode.pongo.tests.ossmeter.model.IssueMilestone");
 	}
+	
+	public static StringQueryProducer URL = new StringQueryProducer("url"); 
+	public static NumericalQueryProducer NUMBER = new NumericalQueryProducer("number");
+	public static StringQueryProducer STATE = new StringQueryProducer("state"); 
+	public static StringQueryProducer TITLE = new StringQueryProducer("title"); 
+	public static StringQueryProducer DESCRIPTION = new StringQueryProducer("description"); 
+	public static StringQueryProducer CREATED_AT = new StringQueryProducer("created_at"); 
+	public static StringQueryProducer DUE_ON = new StringQueryProducer("due_on"); 
+	
 	
 	public String getUrl() {
 		return parseString(dbObject.get("url")+"", "");
 	}
 	
 	public IssueMilestone setUrl(String url) {
-		dbObject.put("url", url + "");
+		dbObject.put("url", url);
 		notifyChanged();
 		return this;
 	}
@@ -32,7 +50,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setNumber(int number) {
-		dbObject.put("number", number + "");
+		dbObject.put("number", number);
 		notifyChanged();
 		return this;
 	}
@@ -41,7 +59,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setState(String state) {
-		dbObject.put("state", state + "");
+		dbObject.put("state", state);
 		notifyChanged();
 		return this;
 	}
@@ -50,7 +68,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setTitle(String title) {
-		dbObject.put("title", title + "");
+		dbObject.put("title", title);
 		notifyChanged();
 		return this;
 	}
@@ -59,7 +77,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setDescription(String description) {
-		dbObject.put("description", description + "");
+		dbObject.put("description", description);
 		notifyChanged();
 		return this;
 	}
@@ -68,7 +86,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setCreated_at(String created_at) {
-		dbObject.put("created_at", created_at + "");
+		dbObject.put("created_at", created_at);
 		notifyChanged();
 		return this;
 	}
@@ -77,7 +95,7 @@ public class IssueMilestone extends Pongo {
 	}
 	
 	public IssueMilestone setDue_on(String due_on) {
-		dbObject.put("due_on", due_on + "");
+		dbObject.put("due_on", due_on);
 		notifyChanged();
 		return this;
 	}
@@ -100,6 +118,7 @@ public class IssueMilestone extends Pongo {
 	public GITUser getCreator() {
 		if (creator == null && dbObject.containsField("creator")) {
 			creator = (GITUser) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("creator"));
+			creator.setContainer(this);
 		}
 		return creator;
 	}

@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class GoogleForgeProject extends Project {
@@ -18,19 +19,34 @@ public class GoogleForgeProject extends Project {
 	
 	public GoogleForgeProject() { 
 		super();
+		dbObject.put("wiki", new BasicDBObject());
+		dbObject.put("license", new BasicDBObject());
 		dbObject.put("issues", new BasicDBList());
 		dbObject.put("owners", new BasicDBList());
 		dbObject.put("committers", new BasicDBList());
 		dbObject.put("contributors", new BasicDBList());
 		dbObject.put("downloads", new BasicDBList());
+		super.setSuperTypes("com.googlecode.pongo.tests.ossmeter.model.Project","com.googlecode.pongo.tests.ossmeter.model.NamedElement");
+		NAME.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleForgeProject");
+		DESCRIPTION.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleForgeProject");
+		YEAR.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleForgeProject");
+		ACTIVE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleForgeProject");
+		STARS.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleForgeProject");
 	}
+	
+	public static StringQueryProducer NAME = new StringQueryProducer("name"); 
+	public static StringQueryProducer DESCRIPTION = new StringQueryProducer("description"); 
+	public static NumericalQueryProducer YEAR = new NumericalQueryProducer("year");
+	public static StringQueryProducer ACTIVE = new StringQueryProducer("active"); 
+	public static NumericalQueryProducer STARS = new NumericalQueryProducer("stars");
+	
 	
 	public int getStars() {
 		return parseInteger(dbObject.get("stars")+"", 0);
 	}
 	
 	public GoogleForgeProject setStars(int stars) {
-		dbObject.put("stars", stars + "");
+		dbObject.put("stars", stars);
 		notifyChanged();
 		return this;
 	}
@@ -71,6 +87,7 @@ public class GoogleForgeProject extends Project {
 	public GoogleWiki getWiki() {
 		if (wiki == null && dbObject.containsField("wiki")) {
 			wiki = (GoogleWiki) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("wiki"));
+			wiki.setContainer(this);
 		}
 		return wiki;
 	}
@@ -91,6 +108,7 @@ public class GoogleForgeProject extends Project {
 	public License getLicense() {
 		if (license == null && dbObject.containsField("license")) {
 			license = (License) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("license"));
+			license.setContainer(this);
 		}
 		return license;
 	}

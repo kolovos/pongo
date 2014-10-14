@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class Bug extends Pongo {
@@ -11,14 +12,30 @@ public class Bug extends Pongo {
 	
 	public Bug() { 
 		super();
+		DESCRIPTION.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		STATUS.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		ASSIGNEE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		SUMITTED.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		PRIORITY.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		RESOLUTIONSTATUS.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
+		BUGVISIBILITY.setOwningType("com.googlecode.pongo.tests.ossmeter.model.Bug");
 	}
+	
+	public static StringQueryProducer DESCRIPTION = new StringQueryProducer("description"); 
+	public static StringQueryProducer STATUS = new StringQueryProducer("status"); 
+	public static StringQueryProducer ASSIGNEE = new StringQueryProducer("assignee"); 
+	public static StringQueryProducer SUMITTED = new StringQueryProducer("sumitted"); 
+	public static NumericalQueryProducer PRIORITY = new NumericalQueryProducer("priority");
+	public static StringQueryProducer RESOLUTIONSTATUS = new StringQueryProducer("resolutionStatus"); 
+	public static StringQueryProducer BUGVISIBILITY = new StringQueryProducer("bugVisibility"); 
+	
 	
 	public String getDescription() {
 		return parseString(dbObject.get("description")+"", "");
 	}
 	
 	public Bug setDescription(String description) {
-		dbObject.put("description", description + "");
+		dbObject.put("description", description);
 		notifyChanged();
 		return this;
 	}
@@ -32,7 +49,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setStatus(BugStatus status) {
-		dbObject.put("status", status + "");
+		dbObject.put("status", status.toString());
 		notifyChanged();
 		return this;
 	}
@@ -41,7 +58,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setAssignee(String assignee) {
-		dbObject.put("assignee", assignee + "");
+		dbObject.put("assignee", assignee);
 		notifyChanged();
 		return this;
 	}
@@ -50,7 +67,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setSumitted(String sumitted) {
-		dbObject.put("sumitted", sumitted + "");
+		dbObject.put("sumitted", sumitted);
 		notifyChanged();
 		return this;
 	}
@@ -59,7 +76,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setPriority(int priority) {
-		dbObject.put("priority", priority + "");
+		dbObject.put("priority", priority);
 		notifyChanged();
 		return this;
 	}
@@ -73,7 +90,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setResolutionStatus(ResolutionStatus resolutionStatus) {
-		dbObject.put("resolutionStatus", resolutionStatus + "");
+		dbObject.put("resolutionStatus", resolutionStatus.toString());
 		notifyChanged();
 		return this;
 	}
@@ -87,7 +104,7 @@ public class Bug extends Pongo {
 	}
 	
 	public Bug setBugVisibility(BugVisibility bugVisibility) {
-		dbObject.put("bugVisibility", bugVisibility + "");
+		dbObject.put("bugVisibility", bugVisibility.toString());
 		notifyChanged();
 		return this;
 	}

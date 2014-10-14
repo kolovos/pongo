@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class SourceForgeProject extends Project {
@@ -23,6 +24,7 @@ public class SourceForgeProject extends Project {
 	
 	public SourceForgeProject() { 
 		super();
+		dbObject.put("donation", new BasicDBObject());
 		dbObject.put("license", new BasicDBList());
 		dbObject.put("os", new BasicDBList());
 		dbObject.put("topics", new BasicDBList());
@@ -34,14 +36,51 @@ public class SourceForgeProject extends Project {
 		dbObject.put("trackers", new BasicDBList());
 		dbObject.put("maintainers", new BasicDBList());
 		dbObject.put("developers", new BasicDBList());
+		super.setSuperTypes("com.googlecode.pongo.tests.ossmeter.model.Project","com.googlecode.pongo.tests.ossmeter.model.NamedElement");
+		NAME.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		DESCRIPTION.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		YEAR.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		ACTIVE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		CREATED.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		CREATEDTIMESTAMP.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		PROJECTID.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		_PRIVATE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		TYPE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		SHORTDESC.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		PERCENTILE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		RANKING.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		DOWNLOADPAGE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		SUPPORTPAGE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		SUMMARYPAGE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		HOMEPAGE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
+		BASEURL.setOwningType("com.googlecode.pongo.tests.ossmeter.model.SourceForgeProject");
 	}
+	
+	public static StringQueryProducer NAME = new StringQueryProducer("name"); 
+	public static StringQueryProducer DESCRIPTION = new StringQueryProducer("description"); 
+	public static NumericalQueryProducer YEAR = new NumericalQueryProducer("year");
+	public static StringQueryProducer ACTIVE = new StringQueryProducer("active"); 
+	public static StringQueryProducer CREATED = new StringQueryProducer("created"); 
+	public static NumericalQueryProducer CREATEDTIMESTAMP = new NumericalQueryProducer("createdTimestamp");
+	public static NumericalQueryProducer PROJECTID = new NumericalQueryProducer("projectId");
+	public static NumericalQueryProducer _PRIVATE = new NumericalQueryProducer("_private");
+	public static NumericalQueryProducer TYPE = new NumericalQueryProducer("type");
+	public static StringQueryProducer SHORTDESC = new StringQueryProducer("shortDesc"); 
+	public static NumericalQueryProducer PERCENTILE = new NumericalQueryProducer("percentile");
+	public static NumericalQueryProducer RANKING = new NumericalQueryProducer("ranking");
+	public static StringQueryProducer DOWNLOADPAGE = new StringQueryProducer("downloadPage"); 
+	public static StringQueryProducer SUPPORTPAGE = new StringQueryProducer("supportPage"); 
+	public static StringQueryProducer SUMMARYPAGE = new StringQueryProducer("summaryPage"); 
+	public static StringQueryProducer HOMEPAGE = new StringQueryProducer("homePage"); 
+	public static StringQueryProducer BASEURL = new StringQueryProducer("baseUrl"); 
+	
 	
 	public String getCreated() {
 		return parseString(dbObject.get("created")+"", "");
 	}
 	
 	public SourceForgeProject setCreated(String created) {
-		dbObject.put("created", created + "");
+		dbObject.put("created", created);
 		notifyChanged();
 		return this;
 	}
@@ -50,7 +89,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setCreatedTimestamp(int createdTimestamp) {
-		dbObject.put("createdTimestamp", createdTimestamp + "");
+		dbObject.put("createdTimestamp", createdTimestamp);
 		notifyChanged();
 		return this;
 	}
@@ -59,7 +98,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setProjectId(int projectId) {
-		dbObject.put("projectId", projectId + "");
+		dbObject.put("projectId", projectId);
 		notifyChanged();
 		return this;
 	}
@@ -68,7 +107,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject set_private(int _private) {
-		dbObject.put("_private", _private + "");
+		dbObject.put("_private", _private);
 		notifyChanged();
 		return this;
 	}
@@ -77,7 +116,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setType(int type) {
-		dbObject.put("type", type + "");
+		dbObject.put("type", type);
 		notifyChanged();
 		return this;
 	}
@@ -86,7 +125,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setShortDesc(String shortDesc) {
-		dbObject.put("shortDesc", shortDesc + "");
+		dbObject.put("shortDesc", shortDesc);
 		notifyChanged();
 		return this;
 	}
@@ -95,7 +134,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setPercentile(float percentile) {
-		dbObject.put("percentile", percentile + "");
+		dbObject.put("percentile", percentile);
 		notifyChanged();
 		return this;
 	}
@@ -104,7 +143,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setRanking(int ranking) {
-		dbObject.put("ranking", ranking + "");
+		dbObject.put("ranking", ranking);
 		notifyChanged();
 		return this;
 	}
@@ -113,7 +152,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setDownloadPage(String downloadPage) {
-		dbObject.put("downloadPage", downloadPage + "");
+		dbObject.put("downloadPage", downloadPage);
 		notifyChanged();
 		return this;
 	}
@@ -122,7 +161,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setSupportPage(String supportPage) {
-		dbObject.put("supportPage", supportPage + "");
+		dbObject.put("supportPage", supportPage);
 		notifyChanged();
 		return this;
 	}
@@ -131,7 +170,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setSummaryPage(String summaryPage) {
-		dbObject.put("summaryPage", summaryPage + "");
+		dbObject.put("summaryPage", summaryPage);
 		notifyChanged();
 		return this;
 	}
@@ -140,7 +179,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setHomePage(String homePage) {
-		dbObject.put("homePage", homePage + "");
+		dbObject.put("homePage", homePage);
 		notifyChanged();
 		return this;
 	}
@@ -149,7 +188,7 @@ public class SourceForgeProject extends Project {
 	}
 	
 	public SourceForgeProject setBaseUrl(String baseUrl) {
-		dbObject.put("baseUrl", baseUrl + "");
+		dbObject.put("baseUrl", baseUrl);
 		notifyChanged();
 		return this;
 	}
@@ -226,6 +265,7 @@ public class SourceForgeProject extends Project {
 	public Donation getDonation() {
 		if (donation == null && dbObject.containsField("donation")) {
 			donation = (Donation) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("donation"));
+			donation.setContainer(this);
 		}
 		return donation;
 	}

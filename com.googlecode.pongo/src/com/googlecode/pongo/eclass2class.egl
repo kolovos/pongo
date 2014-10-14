@@ -34,7 +34,7 @@ public[%=c.getAbstractModifier()%] class [%=c.name%] extends [%=c.getJavaExtends
 		dbObject.put("[%=r.name%]", new BasicDBObject());
 		[%}%]
 		[%for (r in c.eReferences.select(r|r.isContainment and not r.isMany)) { %]
-		dbObject.put("[%=r.name%]", new BasicDBObject());
+		dbObject.put("[%=r.name%]", new [%=r.eType.getJavaName()%]().getDbObject());
 		[%}%]
 		[%for (sf in c.eStructuralFeatures.select(sf|sf.isMany)) { %]
 		dbObject.put("[%=sf.name%]", new BasicDBList());

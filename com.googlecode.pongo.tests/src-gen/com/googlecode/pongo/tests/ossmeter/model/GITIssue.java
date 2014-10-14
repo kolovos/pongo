@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class GITIssue extends Pongo {
@@ -16,16 +17,39 @@ public class GITIssue extends Pongo {
 	
 	public GITIssue() { 
 		super();
+		dbObject.put("user", new BasicDBObject());
+		dbObject.put("assignee", new BasicDBObject());
+		dbObject.put("milestone", new BasicDBObject());
 		dbObject.put("labels", new BasicDBList());
 		dbObject.put("comments", new BasicDBList());
+		URL.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		HTML_URL.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		NUMBER.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		STATE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		TITLE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		BODY.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		CREATED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		UPDATED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
+		CLOSED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GITIssue");
 	}
+	
+	public static StringQueryProducer URL = new StringQueryProducer("url"); 
+	public static StringQueryProducer HTML_URL = new StringQueryProducer("html_url"); 
+	public static NumericalQueryProducer NUMBER = new NumericalQueryProducer("number");
+	public static StringQueryProducer STATE = new StringQueryProducer("state"); 
+	public static StringQueryProducer TITLE = new StringQueryProducer("title"); 
+	public static StringQueryProducer BODY = new StringQueryProducer("body"); 
+	public static StringQueryProducer CREATED_AT = new StringQueryProducer("created_at"); 
+	public static StringQueryProducer UPDATED_AT = new StringQueryProducer("updated_at"); 
+	public static StringQueryProducer CLOSED_AT = new StringQueryProducer("closed_at"); 
+	
 	
 	public String getUrl() {
 		return parseString(dbObject.get("url")+"", "");
 	}
 	
 	public GITIssue setUrl(String url) {
-		dbObject.put("url", url + "");
+		dbObject.put("url", url);
 		notifyChanged();
 		return this;
 	}
@@ -34,7 +58,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setHtml_url(String html_url) {
-		dbObject.put("html_url", html_url + "");
+		dbObject.put("html_url", html_url);
 		notifyChanged();
 		return this;
 	}
@@ -43,7 +67,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setNumber(int number) {
-		dbObject.put("number", number + "");
+		dbObject.put("number", number);
 		notifyChanged();
 		return this;
 	}
@@ -52,7 +76,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setState(String state) {
-		dbObject.put("state", state + "");
+		dbObject.put("state", state);
 		notifyChanged();
 		return this;
 	}
@@ -61,7 +85,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setTitle(String title) {
-		dbObject.put("title", title + "");
+		dbObject.put("title", title);
 		notifyChanged();
 		return this;
 	}
@@ -70,7 +94,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setBody(String body) {
-		dbObject.put("body", body + "");
+		dbObject.put("body", body);
 		notifyChanged();
 		return this;
 	}
@@ -79,7 +103,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setCreated_at(String created_at) {
-		dbObject.put("created_at", created_at + "");
+		dbObject.put("created_at", created_at);
 		notifyChanged();
 		return this;
 	}
@@ -88,7 +112,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setUpdated_at(String updated_at) {
-		dbObject.put("updated_at", updated_at + "");
+		dbObject.put("updated_at", updated_at);
 		notifyChanged();
 		return this;
 	}
@@ -97,7 +121,7 @@ public class GITIssue extends Pongo {
 	}
 	
 	public GITIssue setClosed_at(String closed_at) {
-		dbObject.put("closed_at", closed_at + "");
+		dbObject.put("closed_at", closed_at);
 		notifyChanged();
 		return this;
 	}
@@ -120,6 +144,7 @@ public class GITIssue extends Pongo {
 	public GITUser getUser() {
 		if (user == null && dbObject.containsField("user")) {
 			user = (GITUser) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("user"));
+			user.setContainer(this);
 		}
 		return user;
 	}
@@ -140,6 +165,7 @@ public class GITIssue extends Pongo {
 	public GITUser getAssignee() {
 		if (assignee == null && dbObject.containsField("assignee")) {
 			assignee = (GITUser) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("assignee"));
+			assignee.setContainer(this);
 		}
 		return assignee;
 	}
@@ -160,6 +186,7 @@ public class GITIssue extends Pongo {
 	public IssueMilestone getMilestone() {
 		if (milestone == null && dbObject.containsField("milestone")) {
 			milestone = (IssueMilestone) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("milestone"));
+			milestone.setContainer(this);
 		}
 		return milestone;
 	}

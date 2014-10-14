@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.ossmeter.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class GoogleIssue extends Pongo {
@@ -14,16 +15,35 @@ public class GoogleIssue extends Pongo {
 	
 	public GoogleIssue() { 
 		super();
+		dbObject.put("owner", new BasicDBObject());
 		dbObject.put("comments", new BasicDBList());
 		dbObject.put("labels", new BasicDBList());
+		CREATED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		UPDATED_AT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		PRIORITY.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		TYPE.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		COMPONENT.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		STATUS.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		STARS.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
+		SUMMARY.setOwningType("com.googlecode.pongo.tests.ossmeter.model.GoogleIssue");
 	}
+	
+	public static StringQueryProducer CREATED_AT = new StringQueryProducer("created_at"); 
+	public static StringQueryProducer UPDATED_AT = new StringQueryProducer("updated_at"); 
+	public static StringQueryProducer PRIORITY = new StringQueryProducer("priority"); 
+	public static StringQueryProducer TYPE = new StringQueryProducer("type"); 
+	public static StringQueryProducer COMPONENT = new StringQueryProducer("component"); 
+	public static StringQueryProducer STATUS = new StringQueryProducer("status"); 
+	public static NumericalQueryProducer STARS = new NumericalQueryProducer("stars");
+	public static StringQueryProducer SUMMARY = new StringQueryProducer("summary"); 
+	
 	
 	public String getCreated_at() {
 		return parseString(dbObject.get("created_at")+"", "");
 	}
 	
 	public GoogleIssue setCreated_at(String created_at) {
-		dbObject.put("created_at", created_at + "");
+		dbObject.put("created_at", created_at);
 		notifyChanged();
 		return this;
 	}
@@ -32,7 +52,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setUpdated_at(String updated_at) {
-		dbObject.put("updated_at", updated_at + "");
+		dbObject.put("updated_at", updated_at);
 		notifyChanged();
 		return this;
 	}
@@ -46,7 +66,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setPriority(GoogleIssuePriority priority) {
-		dbObject.put("priority", priority + "");
+		dbObject.put("priority", priority.toString());
 		notifyChanged();
 		return this;
 	}
@@ -60,7 +80,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setType(GoogleIssueType type) {
-		dbObject.put("type", type + "");
+		dbObject.put("type", type.toString());
 		notifyChanged();
 		return this;
 	}
@@ -69,7 +89,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setComponent(String component) {
-		dbObject.put("component", component + "");
+		dbObject.put("component", component);
 		notifyChanged();
 		return this;
 	}
@@ -83,7 +103,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setStatus(GoogleIssueStatus status) {
-		dbObject.put("status", status + "");
+		dbObject.put("status", status.toString());
 		notifyChanged();
 		return this;
 	}
@@ -92,7 +112,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setStars(int stars) {
-		dbObject.put("stars", stars + "");
+		dbObject.put("stars", stars);
 		notifyChanged();
 		return this;
 	}
@@ -101,7 +121,7 @@ public class GoogleIssue extends Pongo {
 	}
 	
 	public GoogleIssue setSummary(String summary) {
-		dbObject.put("summary", summary + "");
+		dbObject.put("summary", summary);
 		notifyChanged();
 		return this;
 	}
@@ -124,6 +144,7 @@ public class GoogleIssue extends Pongo {
 	public GoogleUser getOwner() {
 		if (owner == null && dbObject.containsField("owner")) {
 			owner = (GoogleUser) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("owner"));
+			owner.setContainer(this);
 		}
 		return owner;
 	}
