@@ -6,7 +6,7 @@
       provider-name="University of York">
 
    <description url="http://pongo.googlecode.com">
-	Pongo Generator Feature
+      Pongo Generator Feature
    </description>
 
    <copyright>
@@ -90,14 +90,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.googlecode.pongo"
          download-size="0"
          install-size="0"
-         version="0.5.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.googlecode.pongo.ui"
          download-size="0"
          install-size="0"
-         version="0.5.0.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
