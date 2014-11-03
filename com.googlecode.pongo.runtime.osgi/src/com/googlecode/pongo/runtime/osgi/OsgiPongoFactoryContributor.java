@@ -16,7 +16,7 @@ public class OsgiPongoFactoryContributor implements PongoFactoryContributor {
 	protected HashMap<String, IConfigurationElement> cache = null;	
 	
 	@Override
-	public boolean canCreate(String className) {
+	synchronized public boolean canCreate(String className) {
 		if (cache == null) {
 			discoverExtensions();
 		}
