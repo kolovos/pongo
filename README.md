@@ -1,6 +1,6 @@
 **Pongo** is a [template-based](http://eclipse.org/epsilon/doc/egl/) Java POJO generator for MongoDB. Instead of using low-level DBObjects to interact with your MongoDB database, with Pongo you can define your data/domain model using [Emfatic](http://www.eclipse.org/emfatic) and then generate strongly-typed Java classes you can then use to work with your database at a more convenient level of abstraction. For example, you can specify your domain model as follows:
 
-```
+```java
 package com.googlecode.pongo.tests.blog.model;
 
 @db
@@ -52,7 +52,7 @@ class Member extends Person {
 
 and then use Pongo to generate code that will enable you to interact with your database as follows:
 
-```
+```java
 public static void main(String[] args) {
 
 	Mongo mongo = new Mongo();
