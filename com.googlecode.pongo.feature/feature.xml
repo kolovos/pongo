@@ -2,7 +2,7 @@
 <feature
       id="com.googlecode.pongo.feature"
       label="Pongo Generator"
-      version="0.5.0.qualifier"
+      version="0.6.0.qualifier"
       provider-name="University of York">
 
    <description url="http://pongo.googlecode.com">
@@ -90,14 +90,14 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.googlecode.pongo"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.6.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.googlecode.pongo.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.6.0.qualifier"
          unpack="false"/>
 
 </feature>

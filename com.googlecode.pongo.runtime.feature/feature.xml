@@ -2,11 +2,11 @@
 <feature
       id="com.googlecode.pongo.runtime.feature"
       label="Pongo Runtime"
-      version="0.5.0.qualifier"
+      version="0.6.0.qualifier"
       provider-name="University of York">
 
    <description url="http://pongo.googlecode.com">
-	Pongo Runtime Feature
+      Pongo Runtime Feature
    </description>
 
    <copyright>
@@ -90,20 +90,20 @@ This Agreement is governed by the laws of the State of New York and the intellec
          id="com.googlecode.pongo.runtime"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.6.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.googlecode.pongo.runtime.dependencies"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.6.0.qualifier"/>
 
    <plugin
          id="com.googlecode.pongo.runtime.osgi"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="0.6.0.qualifier"
          unpack="false"/>
 
 </feature>

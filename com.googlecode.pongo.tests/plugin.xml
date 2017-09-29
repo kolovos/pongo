@@ -7,6 +7,7 @@
 
 
 
+
 <extension point="com.googlecode.pongo.runtime.osgi">
     <class name="com.googlecode.pongo.tests.blog.model.Blog"/>
     <class name="com.googlecode.pongo.tests.blog.model.Post"/>

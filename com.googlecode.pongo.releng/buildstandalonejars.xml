@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="test_jar" name="Create Runnable Jar for Project com.googlecode.pongo">
 	
-	<property name="v" value="0.5"/>
+	<property name="v" value="0.6"/>
 		
 	<target name="test_jar" depends="package_jars">
 		<java jar="dist/pongo.jar" args="../com.googlecode.pongo.tests/src-gen/com/googlecode/pongo/tests/blog/model/blog.emf" fork="true">
