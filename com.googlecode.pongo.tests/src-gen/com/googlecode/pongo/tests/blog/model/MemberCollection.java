@@ -25,6 +25,7 @@ public class MemberCollection extends PongoCollection<Member> {
 		}
 		return member;
 	}
+	
 
 	public long countByName(String q) {
 		return dbCollection.count(new BasicDBObject("name", q + ""));

@@ -26,6 +26,7 @@ public class PostCollection extends PongoCollection<Post> {
 		}
 		return post;
 	}
+	
 
 	public long countByTitle(String q) {
 		return dbCollection.count(new BasicDBObject("title", q + ""));

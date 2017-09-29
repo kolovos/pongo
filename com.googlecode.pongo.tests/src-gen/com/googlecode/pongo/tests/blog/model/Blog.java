@@ -15,6 +15,8 @@ public class Blog extends PongoDB {
 	protected MemberCollection members = null;
 	protected AuthorCollection authors = null;
 	
+	
+	
 	public PostCollection getPosts() {
 		return posts;
 	}

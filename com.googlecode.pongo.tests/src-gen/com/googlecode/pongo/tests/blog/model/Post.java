@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.blog.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 // protected region custom-imports on begin
 // protected region custom-imports end
@@ -16,26 +17,33 @@ public class Post extends Pongo {
 	protected Stats stats = null;
 	
 	// protected region custom-fields-and-methods on begin
-	@Override
-	public void preSave() {
-		System.err.println("About to save " + getTitle());
-	}
 	// protected region custom-fields-and-methods end
 	
 	public Post() { 
 		super();
 		dbObject.put("author", new BasicDBObject());
+		dbObject.put("stats", new Stats().getDbObject());
 		dbObject.put("tags", new BasicDBList());
 		dbObject.put("ratings", new BasicDBList());
 		dbObject.put("comments", new BasicDBList());
+		TITLE.setOwningType("com.googlecode.pongo.tests.blog.model.Post");
+		TAGS.setOwningType("com.googlecode.pongo.tests.blog.model.Post");
+		RATINGS.setOwningType("com.googlecode.pongo.tests.blog.model.Post");
+		TYPE.setOwningType("com.googlecode.pongo.tests.blog.model.Post");
 	}
+	
+	public static StringQueryProducer TITLE = new StringQueryProducer("title"); 
+	public static StringQueryProducer TYPE = new StringQueryProducer("type"); 
+	public static ArrayQueryProducer TAGS = new ArrayQueryProducer("tags");
+	public static ArrayQueryProducer RATINGS = new ArrayQueryProducer("ratings");
+	
 	
 	public String getTitle() {
 		return parseString(dbObject.get("title")+"", "");
 	}
 	
 	public Post setTitle(String title) {
-		dbObject.put("title", title + "");
+		dbObject.put("title", title);
 		notifyChanged();
 		return this;
 	}
@@ -49,7 +57,7 @@ public class Post extends Pongo {
 	}
 	
 	public Post setType(PostType type) {
-		dbObject.put("type", type + "");
+		dbObject.put("type", type.toString());
 		notifyChanged();
 		return this;
 	}
@@ -98,6 +106,7 @@ public class Post extends Pongo {
 	public Stats getStats() {
 		if (stats == null && dbObject.containsField("stats")) {
 			stats = (Stats) PongoFactory.getInstance().createPongo((DBObject) dbObject.get("stats"));
+			stats.setContainer(this);
 		}
 		return stats;
 	}

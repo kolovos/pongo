@@ -3,6 +3,7 @@ package com.googlecode.pongo.tests.blog.model;
 import com.mongodb.*;
 import java.util.*;
 import com.googlecode.pongo.runtime.*;
+import com.googlecode.pongo.runtime.querying.*;
 
 
 public class Comment extends Pongo {
@@ -21,14 +22,20 @@ public class Comment extends Pongo {
 		dbObject.put("liked", new BasicDBList());
 		dbObject.put("disliked", new BasicDBList());
 		dbObject.put("flags", new BasicDBList());
+		TEXT.setOwningType("com.googlecode.pongo.tests.blog.model.Comment");
+		FLAGS.setOwningType("com.googlecode.pongo.tests.blog.model.Comment");
 	}
+	
+	public static StringQueryProducer TEXT = new StringQueryProducer("text"); 
+	public static ArrayQueryProducer FLAGS = new ArrayQueryProducer("flags");
+	
 	
 	public String getText() {
 		return parseString(dbObject.get("text")+"", "");
 	}
 	
 	public Comment setText(String text) {
-		dbObject.put("text", text + "");
+		dbObject.put("text", text);
 		notifyChanged();
 		return this;
 	}
